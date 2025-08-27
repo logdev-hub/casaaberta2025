@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCP & Robótica Industrial | Transformando Teoria em Prática</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="factory-noise"></div>
+    
+    <!-- Header com indicadores de produção -->
+    <header class="production-header">
+        <div class="container">
+            <div class="status-indicators">
+                <div class="indicator production-status">
+                    <i class="fas fa-cog spinning"></i>
+                    <span>Produção Ativa</span>
+                </div>
+                <div class="indicator quality-status">
+                    <i class="fas fa-shield-check"></i>
+                    <span>Qualidade OK</span>
+                </div>
+                <div class="indicator efficiency-meter">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Eficiência: <span class="efficiency-value">98%</span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="presentation">
+        <!-- Slide 1: Introdução -->
+        <div class="slide active" id="slide-1">
+            <div class="container">
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <div class="badge">🏭 Indústria 4.0</div>
+                        <h1 class="hero-title">
+                            <span class="gradient-text">Transformando Teoria em Prática</span>
+                            <br>Conceitos de PCP Aplicados à Robótica
+                        </h1>
+                        <p class="hero-description">
+                            Vivencie como o Planejamento, Programação e Controle da Produção organiza 
+                            o fluxo de materiais, cumpre prazos e otimiza recursos através da montagem 
+                            de seu próprio carrinho robótico industrial.
+                        </p>
+                        
+                        <div class="production-metrics">
+                            <div class="metric">
+                                <div class="metric-value" data-target="95">0</div>
+                                <div class="metric-label">% Eficiência</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value" data-target="60">0</div>
+                                <div class="metric-label">min Montagem</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value" data-target="10">0</div>
+                                <div class="metric-label">Componentes</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-visual">
+                        <div class="robot-animation">
+                            <div class="robot-body">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="assembly-line">
+                                <div class="conveyor-belt">
+                                    <div class="belt-segment"></div>
+                                    <div class="belt-segment"></div>
+                                    <div class="belt-segment"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-navigation">
+                <button class="nav-btn next-btn">
+                    Iniciar Jornada <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Slide 2: Gestão de Insumos e BOM -->
+        <div class="slide" id="slide-2">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-icon">📦</div>
+                    <h2>Gestão de Insumos & BOM (Bill of Materials)</h2>
+                    <p>O controle preciso dos materiais é fundamental para o sucesso da produção</p>
+                </div>
+
+                <div class="bom-section">
+                    <div class="bom-overview">
+                        <h3>🔧 Lista de Materiais (BOM) - Carrinho Robótico</h3>
+                        <div class="bom-table-container">
+                            <table class="bom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Descrição</th>
+                                        <th>Qtd</th>
+                                        <th>Categoria</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bom-item" data-category="estrutural">
+                                        <td>001</td>
+                                        <td>Chassi Principal</td>
+                                        <td>1</td>
+                                        <td><span class="category-tag structural">Estrutural</span></td>
+                                        <td><span class="status-tag available">✅ Disponível</span></td>
+                                    </tr>
+                                    <tr class="bom-item" data-category="eletronico">
+                                        <td>002</td>
+                                        <td>Controlador Arduino</td>
+                                        <td>1</td>
+                                        <td><span class="category-tag electronic">Eletrônico</span></td>
+                                        <td><span class="status-tag available">✅ Disponível</span></td>
+                                    </tr>
+                                    <tr class="bom-item" data-category="movimento">
+                                        <td>003</td>
+                                        <td>Motores DC</td>
+                                        <td>2</td>
+                                        <td><span class="category-tag movement">Movimento</span></td>
+                                        <td><span class="status-tag available">✅ Disponível</span></td>
+                                    </tr>
+                                    <tr class="bom-item" data-category="movimento">
+                                        <td>004</td>
+                                        <td>Rodas</td>
+                                        <td>4</td>
+                                        <td><span class="category-tag movement">Movimento</span></td>
+                                        <td><span class="status-tag available">✅ Disponível</span></td>
+                                    </tr>
+                                    <tr class="bom-item" data-category="sensores">
+                                        <td>005</td>
+                                        <td>Sensores Ultrassônicos</td>
+                                        <td>2</td>
+                                        <td><span class="category-tag sensor">Sensores</span></td>
+                                        <td><span class="status-tag available">✅ Disponível</span></td>
+                                    </tr>
+                                    <tr class="bom-item" data-category="eletronico">
+                                        <td>006</td>
+                                        <td>Bateria Li-Ion</td>
+                                        <td>1</td>
+                                        <td><span class="category-tag electronic">Eletrônico</span></td>
+                                        <td><span class="status-tag available">✅ Disponível</span></td>
+                                    </tr>
+                                    <tr class="bom-item" data-category="fixacao">
+                                        <td>007</td>
+                                        <td>Parafusos M3</td>
+                                        <td>12</td>
+                                        <td><span class="category-tag hardware">Fixação</span></td>
+                                        <td><span class="status-tag available">✅ Disponível</span></td>
+                                    </tr>
+                                    <tr class="bom-item" data-category="conexao">
+                                        <td>008</td>
+                                        <td>Cabos Jumper</td>
+                                        <td>10</td>
+                                        <td><span class="category-tag connection">Conexão</span></td>
+                                        <td><span class="status-tag available">✅ Disponível</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="inventory-management">
+                        <h3>📊 Controle de Estoque Inteligente</h3>
+                        <div class="inventory-cards">
+                            <div class="inventory-card">
+                                <div class="card-icon">🔄</div>
+                                <h4>Just-in-Time (JIT)</h4>
+                                <p>Insumos chegam exatamente quando necessários, reduzindo custos de armazenagem</p>
+                                <div class="progress-bar">
+                                    <div class="progress" data-progress="85"></div>
+                                </div>
+                                <span class="progress-text">85% Otimização</span>
+                            </div>
+                            
+                            <div class="inventory-card">
+                                <div class="card-icon">📈</div>
+                                <h4>Previsão de Demanda</h4>
+                                <p>Algoritmos preveem necessidades futuras baseados em dados históricos</p>
+                                <div class="progress-bar">
+                                    <div class="progress" data-progress="92"></div>
+                                </div>
+                                <span class="progress-text">92% Precisão</span>
+                            </div>
+                            
+                            <div class="inventory-card">
+                                <div class="card-icon">⚠️</div>
+                                <h4>Alertas Automáticos</h4>
+                                <p>Sistema notifica quando estoques atingem níveis críticos</p>
+                                <div class="progress-bar">
+                                    <div class="progress" data-progress="78"></div>
+                                </div>
+                                <span class="progress-text">78% Redução Faltas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-navigation">
+                <button class="nav-btn prev-btn">
+                    <i class="fas fa-arrow-left"></i> Anterior
+                </button>
+                <button class="nav-btn next-btn">
+                    Sequenciamento <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Slide 3: Sequenciamento e Fluxo -->
+        <div class="slide" id="slide-3">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-icon">⚙️</div>
+                    <h2>Sequenciamento de Operações</h2>
+                    <p>A ordem correta das operações garante eficiência e qualidade</p>
+                </div>
+
+                <div class="sequence-flow">
+                    <div class="flow-diagram">
+                        <div class="flow-step active" data-step="1">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>🔧 Preparação Base</h4>
+                                <p>Montagem do chassi principal</p>
+                                <div class="step-time">5 min</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                        </div>
+                        
+                        <div class="flow-step" data-step="2">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>🔌 Sistema Elétrico</h4>
+                                <p>Instalação do Arduino e bateria</p>
+                                <div class="step-time">8 min</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                        </div>
+                        
+                        <div class="flow-step" data-step="3">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>🚗 Sistema de Movimento</h4>
+                                <p>Instalação de motores e rodas</p>
+                                <div class="step-time">12 min</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                        </div>
+                        
+                        <div class="flow-step" data-step="4">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>👁️ Sensores</h4>
+                                <p>Instalação dos sensores ultrassônicos</p>
+                                <div class="step-time">10 min</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                        </div>
+                        
+                        <div class="flow-step" data-step="5">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h4>🔗 Conexões</h4>
+                                <p>Cabeamento e conexões finais</p>
+                                <div class="step-time">15 min</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                        </div>
+                        
+                        <div class="flow-step" data-step="6">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <h4>✅ Testes</h4>
+                                <p>Validação e ajustes finais</p>
+                                <div class="step-time">10 min</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sequence-controls">
+                        <button class="sequence-btn" onclick="startSequenceAnimation()">
+                            <i class="fas fa-play"></i> Simular Sequência
+                        </button>
+                        <button class="sequence-btn" onclick="resetSequence()">
+                            <i class="fas fa-redo"></i> Reiniciar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="optimization-tips">
+                    <h3>🎯 Princípios de Otimização</h3>
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <div class="tip-icon">⏱️</div>
+                            <h4>Tempo de Setup</h4>
+                            <p>Redução do tempo de preparação entre operações através da padronização de ferramentas</p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-icon">🔄</div>
+                            <h4>Balanceamento</h4>
+                            <p>Distribuição equilibrada de carga de trabalho entre estações de montagem</p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-icon">📊</div>
+                            <h4>Gargalos</h4>
+                            <p>Identificação e eliminação de pontos que limitam a velocidade de produção</p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-icon">🎯</div>
+                            <h4>Flexibilidade</h4>
+                            <p>Capacidade de adaptação rápida a mudanças na demanda ou especificações</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-navigation">
+                <button class="nav-btn prev-btn">
+                    <i class="fas fa-arrow-left"></i> Anterior
+                </button>
+                <button class="nav-btn next-btn">
+                    Cronograma <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Slide 4: Gestão de Tempo e Cronograma -->
+        <div class="slide" id="slide-4">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-icon">⏰</div>
+                    <h2>Gestão de Tempo & Cronograma</h2>
+                    <p>Planejamento temporal para máxima eficiência produtiva</p>
+                </div>
+
+                <div class="timeline-section">
+                    <div class="gantt-chart">
+                        <h3>📅 Cronograma Detalhado - 60 Minutos</h3>
+                        <div class="gantt-container">
+                            <div class="gantt-header">
+                                <div class="time-markers">
+                                    <span>0min</span>
+                                    <span>15min</span>
+                                    <span>30min</span>
+                                    <span>45min</span>
+                                    <span>60min</span>
+                                </div>
+                            </div>
+                            
+                            <div class="gantt-tasks">
+                                <div class="gantt-task" data-start="0" data-duration="5">
+                                    <div class="task-bar preparation">
+                                        <span>Preparação Base</span>
+                                    </div>
+                                    <div class="task-progress" data-progress="0"></div>
+                                </div>
+                                
+                                <div class="gantt-task" data-start="5" data-duration="8">
+                                    <div class="task-bar electrical">
+                                        <span>Sistema Elétrico</span>
+                                    </div>
+                                    <div class="task-progress" data-progress="0"></div>
+                                </div>
+                                
+                                <div class="gantt-task" data-start="13" data-duration="12">
+                                    <div class="task-bar movement">
+                                        <span>Sistema de Movimento</span>
+                                    </div>
+                                    <div class="task-progress" data-progress="0"></div>
+                                </div>
+                                
+                                <div class="gantt-task" data-start="25" data-duration="10">
+                                    <div class="task-bar sensors">
+                                        <span>Instalação Sensores</span>
+                                    </div>
+                                    <div class="task-progress" data-progress="0"></div>
+                                </div>
+                                
+                                <div class="gantt-task" data-start="35" data-duration="15">
+                                    <div class="task-bar connections">
+                                        <span>Conexões e Cabeamento</span>
+                                    </div>
+                                    <div class="task-progress" data-progress="0"></div>
+                                </div>
+                                
+                                <div class="gantt-task" data-start="50" data-duration="10">
+                                    <div class="task-bar testing">
+                                        <span>Testes e Validação</span>
+                                    </div>
+                                    <div class="task-progress" data-progress="0"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-controls">
+                            <button class="timeline-btn" onclick="startTimelineSimulation()">
+                                <i class="fas fa-play"></i> Simular Timeline
+                            </button>
+                            <button class="timeline-btn" onclick="pauseTimeline()">
+                                <i class="fas fa-pause"></i> Pausar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="kpi-dashboard">
+                        <h3>📊 KPIs de Produção em Tempo Real</h3>
+                        <div class="kpi-grid">
+                            <div class="kpi-card">
+                                <div class="kpi-icon">⚡</div>
+                                <div class="kpi-value" id="efficiency-kpi">0%</div>
+                                <div class="kpi-label">Eficiência Global</div>
+                                <div class="kpi-trend up">↗ +2.3%</div>
+                            </div>
+                            
+                            <div class="kpi-card">
+                                <div class="kpi-icon">🎯</div>
+                                <div class="kpi-value" id="quality-kpi">0%</div>
+                                <div class="kpi-label">Taxa de Qualidade</div>
+                                <div class="kpi-trend up">↗ +1.8%</div>
+                            </div>
+                            
+                            <div class="kpi-card">
+                                <div class="kpi-icon">📈</div>
+                                <div class="kpi-value" id="throughput-kpi">0</div>
+                                <div class="kpi-label">Unidades/Hora</div>
+                                <div class="kpi-trend up">↗ +5.2%</div>
+                            </div>
+                            
+                            <div class="kpi-card">
+                                <div class="kpi-icon">⏱️</div>
+                                <div class="kpi-value" id="cycle-time-kpi">0min</div>
+                                <div class="kpi-label">Tempo de Ciclo</div>
+                                <div class="kpi-trend down">↘ -0.8%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-navigation">
+                <button class="nav-btn prev-btn">
+                    <i class="fas fa-arrow-left"></i> Anterior
+                </button>
+                <button class="nav-btn next-btn">
+                    Controle de Qualidade <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Slide 5: Controle de Qualidade Avançado -->
+        <div class="slide" id="slide-5">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-icon">🛡️</div>
+                    <h2>Controle de Qualidade Avançado</h2>
+                    <p>Garantindo excelência através de inspeções sistemáticas e melhoria contínua</p>
+                </div>
+
+                <div class="quality-system">
+                    <div class="quality-workflow">
+                        <h3>🔍 Pontos de Controle de Qualidade</h3>
+                        <div class="quality-checkpoints">
+                            <div class="checkpoint active" data-checkpoint="1">
+                                <div class="checkpoint-icon">📋</div>
+                                <div class="checkpoint-content">
+                                    <h4>Inspeção de Entrada</h4>
+                                    <p>Verificação de conformidade dos componentes recebidos</p>
+                                    <div class="quality-metrics">
+                                        <span class="metric">✅ Dimensões</span>
+                                        <span class="metric">✅ Material</span>
+                                        <span class="metric">✅ Funcionalidade</span>
+                                    </div>
+                                </div>
+                                <div class="checkpoint-status passed">PASS</div>
+                            </div>
+                            
+                            <div class="checkpoint" data-checkpoint="2">
+                                <div class="checkpoint-icon">🔧</div>
+                                <div class="checkpoint-content">
+                                    <h4>Controle de Processo</h4>
+                                    <p>Monitoramento durante cada etapa de montagem</p>
+                                    <div class="quality-metrics">
+                                        <span class="metric">⚡ Torque</span>
+                                        <span class="metric">📏 Alinhamento</span>
+                                        <span class="metric">🔌 Conexões</span>
+                                    </div>
+                                </div>
+                                <div class="checkpoint-status pending">PENDING</div>
+                            </div>
+                            
+                            <div class="checkpoint" data-checkpoint="3">
+                                <div class="checkpoint-icon">🧪</div>
+                                <div class="checkpoint-content">
+                                    <h4>Testes Funcionais</h4>
+                                    <p>Validação completa do produto acabado</p>
+                                    <div class="quality-metrics">
+                                        <span class="metric">🚗 Movimento</span>
+                                        <span class="metric">👁️ Sensores</span>
+                                        <span class="metric">🔋 Autonomia</span>
+                                    </div>
+                                </div>
+                                <div class="checkpoint-status waiting">WAITING</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quality-tests">
+                        <h3>⚙️ Protocolo de Testes Automatizados</h3>
+                        <div class="test-suite">
+                            <div class="test-category">
+                                <h4>🔌 Testes Elétricos</h4>
+                                <div class="test-items">
+                                    <div class="test-item">
+                                        <span class="test-name">Continuidade dos Circuitos</span>
+                                        <div class="test-progress">
+                                            <div class="progress-bar">
+                                                <div class="progress" data-progress="100"></div>
+                                            </div>
+                                        </div>
+                                        <span class="test-result pass">✅</span>
+                                    </div>
+                                    
+                                    <div class="test-item">
+                                        <span class="test-name">Tensão da Bateria</span>
+                                        <div class="test-progress">
+                                            <div class="progress-bar">
+                                                <div class="progress" data-progress="85"></div>
+                                            </div>
+                                        </div>
+                                        <span class="test-result testing">🔄</span>
+                                    </div>
+                                    
+                                    <div class="test-item">
+                                        <span class="test-name">Consumo de Corrente</span>
+                                        <div class="test-progress">
+                                            <div class="progress-bar">
+                                                <div class="progress" data-progress="0"></div>
+                                            </div>
+                                        </div>
+                                        <span class="test-result pending">⏳</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="test-category">
+                                <h4>🚗 Testes Mecânicos</h4>
+                                <div class="test-items">
+                                    <div class="test-item">
+                                        <span class="test-name">Movimento das Rodas</span>
+                                        <div class="test-progress">
+                                            <div class="progress-bar">
+                                                <div class="progress" data-progress="100"></div>
+                                            </div>
+                                        </div>
+                                        <span class="test-result pass">✅</span>
+                                    </div>
+                                    
+                                    <div class="test-item">
+                                        <span class="test-name">Alinhamento do Chassi</span>
+                                        <div class="test-progress">
+                                            <div class="progress-bar">
+                                                <div class="progress" data-progress="92"></div>
+                                            </div>
+                                        </div>
+                                        <span class="test-result testing">🔄</span>
+                                    </div>
+                                    
+                                    <div class="test-item">
+                                        <span class="test-name">Fixação dos Componentes</span>
+                                        <div class="test-progress">
+                                            <div class="progress-bar">
+                                                <div class="progress" data-progress="78"></div>
+                                            </div>
+                                        </div>
+                                        <span class="test-result testing">🔄</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="quality-actions">
+                            <button class="quality-btn primary" onclick="startQualityTests()">
+                                <i class="fas fa-play"></i> Executar Testes
+                            </button>
+                            <button class="quality-btn secondary" onclick="generateQualityReport()">
+                                <i class="fas fa-file-alt"></i> Relatório
+                            </button>
+                            <button class="quality-btn secondary" onclick="exportQualityData()">
+                                <i class="fas fa-download"></i> Exportar Dados
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="quality-dashboard">
+                        <h3>📊 Dashboard de Qualidade</h3>
+                        <div class="quality-metrics-grid">
+                            <div class="quality-metric-card">
+                                <div class="metric-header">
+                                    <div class="metric-icon">📈</div>
+                                    <h4>Taxa de Aprovação</h4>
+                                </div>
+                                <div class="metric-chart">
+                                    <canvas id="approvalChart"></canvas>
+                                </div>
+                                <div class="metric-value">96.5%</div>
+                            </div>
+                            
+                            <div class="quality-metric-card">
+                                <div class="metric-header">
+                                    <div class="metric-icon">⚠️</div>
+                                    <h4>Defeitos por Milhão</h4>
+                                </div>
+                                <div class="metric-chart">
+                                    <canvas id="defectsChart"></canvas>
+                                </div>
+                                <div class="metric-value">340 DPM</div>
+                            </div>
+                            
+                            <div class="quality-metric-card">
+                                <div class="metric-header">
+                                    <div class="metric-icon">🔄</div>
+                                    <h4>Taxa de Retrabalho</h4>
+                                </div>
+                                <div class="metric-chart">
+                                    <canvas id="reworkChart"></canvas>
+                                </div>
+                                <div class="metric-value">2.1%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-navigation">
+                <button class="nav-btn prev-btn">
+                    <i class="fas fa-arrow-left"></i> Anterior
+                </button>
+                <button class="nav-btn next-btn">
+                    Integração <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Slide 6: Integração e Otimização -->
+        <div class="slide" id="slide-6">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-icon">🔗</div>
+                    <h2>Integração de Sistemas & Otimização</h2>
+                    <p>Conectando todos os elementos para máxima eficiência operacional</p>
+                </div>
+
+                <div class="integration-overview">
+                    <div class="system-architecture">
+                        <h3>🏗️ Arquitetura de Sistemas Integrados</h3>
+                        <div class="architecture-diagram">
+                            <div class="system-layer erp-layer">
+                                <h4>📊 ERP - Enterprise Resource Planning</h4>
+                                <div class="system-modules">
+                                    <div class="module">Vendas</div>
+                                    <div class="module">Compras</div>
+                                    <div class="module">Financeiro</div>
+                                    <div class="module">RH</div>
+                                </div>
+                            </div>
+                            
+                            <div class="integration-arrow">↓</div>
+                            
+                            <div class="system-layer mes-layer">
+                                <h4>⚙️ MES - Manufacturing Execution System</h4>
+                                <div class="system-modules">
+                                    <div class="module">Scheduling</div>
+                                    <div class="module">Tracking</div>
+                                    <div class="module">Quality</div>
+                                    <div class="module">Performance</div>
+                                </div>
+                            </div>
+                            
+                            <div class="integration-arrow">↓</div>
+                            
+                            <div class="system-layer scada-layer">
+                                <h4>🖥️ SCADA - Supervisory Control</h4>
+                                <div class="system-modules">
+                                    <div class="module">Monitoring</div>
+                                    <div class="module">Control</div>
+                                    <div class="module">Alarms</div>
+                                    <div class="module">HMI</div>
+                                </div>
+                            </div>
+                            
+                            <div class="integration-arrow">↓</div>
+                            
+                            <div class="system-layer plc-layer">
+                                <h4>🤖 PLC/DCS - Controle Industrial</h4>
+                                <div class="system-modules">
+                                    <div class="module">Sensores</div>
+                                    <div class="module">Atuadores</div>
+                                    <div class="module">Motores</div>
+                                    <div class="module">Robôs</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="optimization-strategies">
+                        <h3>🎯 Estratégias de Otimização</h3>
+                        <div class="strategies-grid">
+                            <div class="strategy-card lean">
+                                <div class="strategy-icon">🎯</div>
+                                <h4>Lean Manufacturing</h4>
+                                <ul>
+                                    <li>Eliminação de desperdícios (7 tipos)</li>
+                                    <li>Melhoria contínua (Kaizen)</li>
+                                    <li>Just-in-Time (JIT)</li>
+                                    <li>Poka-Yoke (à prova de erros)</li>
+                                </ul>
+                                <div class="strategy-impact">
+                                    <span class="impact-metric">-30% Desperdícios</span>
+                                    <span class="impact-metric">+25% Eficiência</span>
+                                </div>
+                            </div>
+                            
+                            <div class="strategy-card sixsigma">
+                                <div class="strategy-icon">📊</div>
+                                <h4>Six Sigma</h4>
+                                <ul>
+                                    <li>DMAIC (Define, Measure, Analyze, Improve, Control)</li>
+                                    <li>Redução da variabilidade</li>
+                                    <li>Análise estatística de processos</li>
+                                    <li>Green/Black Belts</li>
+                                </ul>
+                                <div class="strategy-impact">
+                                    <span class="impact-metric">3.4 DPM</span>
+                                    <span class="impact-metric">99.99% Qualidade</span>
+                                </div>
+                            </div>
+                            
+                            <div class="strategy-card tpm">
+                                <div class="strategy-icon">🔧</div>
+                                <h4>TPM - Total Productive Maintenance</h4>
+                                <ul>
+                                    <li>Manutenção autônoma</li>
+                                    <li>Manutenção planejada</li>
+                                    <li>OEE (Overall Equipment Effectiveness)</li>
+                                    <li>Zero defeitos/paradas</li>
+                                </ul>
+                                <div class="strategy-impact">
+                                    <span class="impact-metric">+15% OEE</span>
+                                    <span class="impact-metric">-50% Paradas</span>
+                                </div>
+                            </div>
+                            
+                            <div class="strategy-card industry40">
+                                <div class="strategy-icon">🌐</div>
+                                <h4>Indústria 4.0</h4>
+                                <ul>
+                                    <li>IoT (Internet das Coisas)</li>
+                                    <li>Big Data & Analytics</li>
+                                    <li>Inteligência Artificial</li>
+                                    <li>Digital Twin</li>
+                                </ul>
+                                <div class="strategy-impact">
+                                    <span class="impact-metric">+40% Produtividade</span>
+                                    <span class="impact-metric">-20% Custos</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="benefits-summary">
+                        <h3>💡 Benefícios da Integração Completa</h3>
+                        <div class="benefits-visualization">
+                            <div class="benefit-item">
+                                <div class="benefit-icon">⚡</div>
+                                <div class="benefit-content">
+                                    <h4>Velocidade de Resposta</h4>
+                                    <p>Redução de 75% no tempo de resposta a mudanças de demanda</p>
+                                    <div class="benefit-bar">
+                                        <div class="benefit-progress" data-progress="75"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="benefit-item">
+                                <div class="benefit-icon">💰</div>
+                                <div class="benefit-content">
+                                    <h4>Redução de Custos</h4>
+                                    <p>Economia de 30% nos custos operacionais totais</p>
+                                    <div class="benefit-bar">
+                                        <div class="benefit-progress" data-progress="30"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="benefit-item">
+                                <div class="benefit-icon">📈</div>
+                                <div class="benefit-content">
+                                    <h4>Aumento da Qualidade</h4>
+                                    <p>Melhoria de 45% nos índices de qualidade</p>
+                                    <div class="benefit-bar">
+                                        <div class="benefit-progress" data-progress="45"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="benefit-item">
+                                <div class="benefit-icon">🎯</div>
+                                <div class="benefit-content">
+                                    <h4>Precisão no Planejamento</h4>
+                                    <p>Aumento de 60% na precisão das previsões</p>
+                                    <div class="benefit-bar">
+                                        <div class="benefit-progress" data-progress="60"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-navigation">
+                <button class="nav-btn prev-btn">
+                    <i class="fas fa-arrow-left"></i> Anterior
+                </button>
+                <button class="nav-btn next-btn">
+                    Inscrições <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Slide 7: Informações da Oficina -->
+        <div class="slide" id="slide-7">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-icon">🎓</div>
+                    <h2>Transforme Conhecimento em Prática</h2>
+                    <p>Participe da oficina e construa seu próprio carrinho robótico aplicando conceitos de PCP</p>
+                </div>
+
+                <div class="workshop-info">
+                    <div class="workshop-overview">
+                        <div class="workshop-highlights">
+                            <div class="highlight-card">
+                                <div class="highlight-icon">🏭</div>
+                                <h3>Experiência Prática</h3>
+                                <p>Monte seu carrinho robótico aplicando conceitos reais de produção industrial</p>
+                            </div>
+                            
+                            <div class="highlight-card">
+                                <div class="highlight-icon">👥</div>
+                                <h3>Turmas Reduzidas</h3>
+                                <p>Máximo 10 participantes por sessão para aprendizado personalizado</p>
+                            </div>
+                            
+                            <div class="highlight-card">
+                                <div class="highlight-icon">🎯</div>
+                                <h3>Metodologia Ativa</h3>
+                                <p>Aprenda fazendo com orientação de especialistas em engenharia de produção</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="schedule-section">
+                        <h3>📅 Cronograma de Sessões</h3>
+                        <div class="schedule-grid">
+                            <div class="schedule-card morning">
+                                <div class="time-badge">🌅 Manhã</div>
+                                <div class="schedule-content">
+                                    <h4>Sessão Matinal</h4>
+                                    <div class="schedule-details">
+                                        <div class="detail-item">
+                                            <i class="fas fa-clock"></i>
+                                            <span>09:00 - 10:00</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <span>Sala 25 - 2º Andar</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <i class="fas fa-users"></i>
+                                            <span>10 vagas disponíveis</span>
+                                        </div>
+                                    </div>
+                                    <div class="availability available">
+                                        <i class="fas fa-check-circle"></i>
+                                        Vagas Disponíveis
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="schedule-card afternoon">
+                                <div class="time-badge">☀️ Tarde</div>
+                                <div class="schedule-content">
+                                    <h4>Sessão Vespertina</h4>
+                                    <div class="schedule-details">
+                                        <div class="detail-item">
+                                            <i class="fas fa-clock"></i>
+                                            <span>14:00 - 15:00</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <span>Sala 25 - 2º Andar</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <i class="fas fa-users"></i>
+                                            <span>7 vagas disponíveis</span>
+                                        </div>
+                                    </div>
+                                    <div class="availability available">
+                                        <i class="fas fa-check-circle"></i>
+                                        Vagas Disponíveis
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="schedule-card evening">
+                                <div class="time-badge">🌆 Noite</div>
+                                <div class="schedule-content">
+                                    <h4>Sessão Noturna</h4>
+                                    <div class="schedule-details">
+                                        <div class="detail-item">
+                                            <i class="fas fa-clock"></i>
+                                            <span>19:00 - 20:00</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <span>Sala 25 - 2º Andar</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <i class="fas fa-users"></i>
+                                            <span>3 vagas disponíveis</span>
+                                        </div>
+                                    </div>
+                                    <div class="availability limited">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        Poucas Vagas
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="registration-section">
+                        <h3>📝 Como Participar</h3>
+                        <div class="registration-steps">
+                            <div class="step-item">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Chegue Cedo</h4>
+                                    <p>Inscrições abertas <strong>30 minutos antes</strong> de cada sessão na Sala 25</p>
+                                </div>
+                            </div>
+                            
+                            <div class="step-item">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Garanta sua Vaga</h4>
+                                    <p>Vagas limitadas por ordem de chegada - não perca esta oportunidade única!</p>
+                                </div>
+                            </div>
+                            
+                            <div class="step-item">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Participe Ativamente</h4>
+                                    <p>Traga curiosidade e vontade de aprender na prática os conceitos de PCP</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="call-to-action">
+                            <div class="cta-content">
+                                <h3>🚀 Não Perca Esta Oportunidade!</h3>
+                                <p>Uma experiência única que combina teoria e prática em ambiente industrial real</p>
+                            </div>
+                            <button class="cta-button" onclick="showLocationDetails()">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Ver Localização
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="learning-outcomes">
+                    <h3>🎯 O que você vai aprender</h3>
+                    <div class="outcomes-grid">
+                        <div class="outcome-item">
+                            <div class="outcome-icon">📊</div>
+                            <h4>Planejamento de Produção</h4>
+                            <p>Como estruturar e organizar processos produtivos eficientes</p>
+                        </div>
+                        
+                        <div class="outcome-item">
+                            <div class="outcome-icon">⚙️</div>
+                            <h4>Controle de Processos</h4>
+                            <p>Técnicas de monitoramento e otimização de operações</p>
+                        </div>
+                        
+                        <div class="outcome-item">
+                            <div class="outcome-icon">🛡️</div>
+                            <h4>Gestão da Qualidade</h4>
+                            <p>Métodos para garantir padrões de excelência</p>
+                        </div>
+                        
+                        <div class="outcome-item">
+                            <div class="outcome-icon">🔗</div>
+                            <h4>Integração de Sistemas</h4>
+                            <p>Como conectar diferentes áreas para máxima eficiência</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-navigation">
+                <button class="nav-btn prev-btn">
+                    <i class="fas fa-arrow-left"></i> Anterior
+                </button>
+                <button class="nav-btn next-btn" onclick="restartPresentation()">
+                    <i class="fas fa-redo"></i> Reiniciar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div class="progress-indicator">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <div class="progress-text">
+            <span class="current-slide">1</span> / <span class="total-slides">7</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

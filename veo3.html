@@ -1,0 +1,659 @@
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Como Criar Prompts para Vídeos com IA (VEO 3) — Oficina Interativa</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root{
+      --brand-1:#0f172a; /* slate-900 */
+      --brand-2:#1e293b; /* slate-800 */
+      --brand-3:#38bdf8; /* sky-400 */
+      --brand-4:#22c55e; /* green-500 */
+      --brand-5:#f59e0b; /* amber-500 */
+      --soft:#f8fafc;
+    }
+    body{background: var(--soft);}
+    .hero{
+      background: radial-gradient(1200px 400px at 10% -20%, #67e8f9 0%, rgba(103,232,249,0) 60%),
+                  linear-gradient(135deg, var(--brand-2), var(--brand-1) 60%);
+      color:#fff;
+      border-bottom: 4px solid rgba(255,255,255,.08);
+    }
+    .pill{border:1px solid rgba(255,255,255,.25); color:#fff;padding:.35rem .7rem;border-radius:999px;display:inline-flex;align-items:center;gap:.4rem}
+    .glass{
+      background: rgba(255,255,255,.88);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 10px 20px rgba(2,6,23,.08);
+      border: 1px solid rgba(15,23,42,.06);
+    }
+    .codebox{
+      white-space:pre-wrap;background:#0b1020;color:#e5e7eb;border-radius:.75rem;padding:1rem;border:1px solid rgba(255,255,255,.08);
+    }
+    .badge-soft{background:#e2e8f0;color:#0f172a}
+    .nav-pills .nav-link.active{background: var(--brand-3); color:#0b1020;font-weight:600}
+    .nav-pills .nav-link{color:#0f172a}
+    textarea{min-height:110px}
+    .small-muted{font-size:.85rem;color:#475569}
+    .footer-note{color:#64748b}
+    .example-card{border-left:4px solid var(--brand-4)}
+    .help-bubble{background:#ecfeff;border:1px dashed #67e8f9;padding:.6rem;border-radius:.5rem}
+    .q-label{font-weight:600}
+    .q-tip{font-size:.85rem;color:#475569}
+    .copy-btn{position:absolute;right:1rem;top:.75rem}
+  </style>
+</head>
+<body>
+  <header class="hero py-5">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <h1 class="display-5 fw-bold">🚀 Como Criar Prompts para Vídeos com IA (VEO 3)</h1>
+          <p class="lead mb-3">Desperte sua criatividade e transforme ideias em vídeos de 8 segundos com prompts claros, poderosos e fáceis de usar no VEO 3.</p>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="pill"><i class="bi bi-clock"></i><strong>Tempo:</strong> 13:30–14:15</span>
+            <span class="pill"><i class="bi bi-people"></i><strong>Vagas:</strong> até 30 participantes</span>
+            <span class="pill"><i class="bi bi-camera-reels"></i>Oficina prática • pt-BR 🎬</span>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="glass rounded-3 p-3">
+            <h6 class="mb-2"><i class="bi bi-info-circle"></i> Objetivo</h6>
+            <p class="mb-2 small">Aprender (na prática) a escrever prompts para cenas de 8s no VEO 3 usando 20 perguntas-guia, com dicas, exemplos e um gerador automático de saída.</p>
+            <ul class="small mb-0">
+              <li>🎯 Saída final em <strong>Markdown (inglês)</strong>; falas em <strong>pt-BR</strong>; <strong>sem legendas</strong>.</li>
+              <li>🧭 Fluxo: perguntas → resumo breve → geração da saída final com <strong>Q&A</strong>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="py-4">
+    <div class="container">
+      <ul class="nav nav-pills mb-4" id="workshopTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="fund-tab" data-bs-toggle="pill" data-bs-target="#fund" type="button" role="tab">Fundamentos & Dicas 💡</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="wizard-tab" data-bs-toggle="pill" data-bs-target="#wizard" type="button" role="tab">Questionário VEO3 🧩</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="examples-tab" data-bs-toggle="pill" data-bs-target="#examples" type="button" role="tab">Exemplos 🎯</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="promptbase-tab" data-bs-toggle="pill" data-bs-target="#promptbase" type="button" role="tab">Prompt Base 📋</button>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <!-- Fundamentos -->
+        <section class="tab-pane fade show active" id="fund" role="tabpanel" aria-labelledby="fund-tab">
+          <div class="row g-4">
+            <div class="col-lg-7">
+              <div class="glass rounded-3 p-3">
+                <h5 class="mb-3">As 20 perguntas — versão otimizada</h5>
+                <div class="accordion" id="fundAccordion"></div>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="glass rounded-3 p-3">
+                <h6 class="mb-2">Como usar na oficina 🛠️</h6>
+                <ol class="small">
+                  <li>Leia as dicas de cada pergunta e pense na <strong>intenção visual e sonora</strong>.</li>
+                  <li>Na aba <strong>Questionário VEO3</strong>, responda todas as 20 perguntas (sem etapas/efeitos).</li>
+                  <li>Escreva um <strong>resumo de 2–3 frases</strong> e gere a <strong>saída final</strong> em Markdown.</li>
+                  <li>Copie o texto com <strong>um clique</strong> e cole no GPT/IA de sua escolha.</li>
+                </ol>
+                <div class="help-bubble small">
+                  Dica: falas em pt-BR devem caber em ~4s. Evite números que possam “envelhecer” rápido, a menos que seja intencional (ex.: jornalismo).
+                </div>
+              </div>
+              <div class="glass rounded-3 p-3 mt-3">
+                <h6 class="mb-2">Restrições da entrega 🚦</h6>
+                <ul class="small mb-0">
+                  <li>Sem legendas, on-screen text ou lower-thirds.</li>
+                  <li>1080p, 16:9, 30fps (ajuste se necessário).</li>
+                  <li>Áudio ambiente com ducking durante fala (~-8 dB).</li>
+                  <li>Evite logomarcas e rostos identificáveis sem autorização.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Questionário (sem efeitos entre perguntas) -->
+        <section class="tab-pane fade" id="wizard" role="tabpanel" aria-labelledby="wizard-tab">
+          <div class="glass rounded-3 p-3 mb-3">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <h5 class="mb-0">Construa sua cena de 8s 🧪</h5>
+              <div class="d-flex gap-2">
+                <button class="btn btn-sm btn-outline-secondary" id="btnRandom"><i class="bi bi-stars"></i> Surpreenda-me</button>
+                <button class="btn btn-sm btn-outline-primary" id="btnReset"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+              </div>
+            </div>
+            <div id="formContainer" class="row g-3"></div>
+            <div class="mt-3">
+              <label class="form-label">Resumo breve da cena (2–3 frases) <span class="badge badge-soft">opcional</span></label>
+              <textarea class="form-control" id="resumo" placeholder="Escreva um resumo objetivo da cena..."></textarea>
+            </div>
+            <div class="d-flex flex-wrap gap-2 mt-3">
+              <button class="btn btn-success" id="btnGenerate"><i class="bi bi-magic"></i> Gerar Saída Final</button>
+              <button class="btn btn-outline-dark" id="btnCopyOutput" disabled><i class="bi bi-clipboard-check"></i> Copiar Saída</button>
+              <button class="btn btn-outline-secondary" id="btnDownload" disabled><i class="bi bi-download"></i> Baixar .md</button>
+            </div>
+          </div>
+
+          <div class="glass rounded-3 p-3" id="outputPanel" style="display:none;">
+            <div class="position-relative">
+              <button class="btn btn-sm btn-dark copy-btn" id="btnCopyOutputTop"><i class="bi bi-clipboard"></i> Copiar</button>
+              <h6 class="mb-2">Saída (Markdown em inglês; falas em pt-BR; sem emojis) + Q&A</h6>
+              <pre class="codebox" id="finalOutput"></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Examples -->
+        <section class="tab-pane fade" id="examples" role="tabpanel" aria-labelledby="examples-tab">
+          <div class="row g-3">
+            <div class="col-lg-4">
+              <div class="glass rounded-3 p-3 example-card">
+                <h6>Exemplo 1 — Café Aconchegante ☕</h6>
+                <p class="small-muted">Barista em close médio, tarde chuvosa, luz quente suave, vapor visível.</p>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-sm btn-primary load-example" data-example="1"><i class="bi bi-upload"></i> Carregar no Questionário</button>
+                  <button class="btn btn-sm btn-outline-secondary preview-example" data-example="1"><i class="bi bi-eye"></i> Pré-visualizar</button>
+                </div>
+                <div class="mt-2 small">
+                  <details>
+                    <summary>Ver Markdown de prévia</summary>
+                    <pre class="codebox mt-2" id="prev-1"></pre>
+                  </details>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="glass rounded-3 p-3 example-card">
+                <h6>Exemplo 2 — Rua de São Paulo 🚦</h6>
+                <p class="small-muted">Entrevistado em plano médio com tráfego ao fundo; fim de tarde; tom documental.</p>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-sm btn-primary load-example" data-example="2"><i class="bi bi-upload"></i> Carregar no Questionário</button>
+                  <button class="btn btn-sm btn-outline-secondary preview-example" data-example="2"><i class="bi bi-eye"></i> Pré-visualizar</button>
+                </div>
+                <div class="mt-2 small">
+                  <details>
+                    <summary>Ver Markdown de prévia</summary>
+                    <pre class="codebox mt-2" id="prev-2"></pre>
+                  </details>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="glass rounded-3 p-3 example-card">
+                <h6>Exemplo 3 — Estúdio Minimalista 🎙️</h6>
+                <p class="small-muted">Plano fixo, fundo neutro, key light suave; foco total na fala.</p>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-sm btn-primary load-example" data-example="3"><i class="bi bi-upload"></i> Carregar no Questionário</button>
+                  <button class="btn btn-sm btn-outline-secondary preview-example" data-example="3"><i class="bi bi-eye"></i> Pré-visualizar</button>
+                </div>
+                <div class="mt-2 small">
+                  <details>
+                    <summary>Ver Markdown de prévia</summary>
+                    <pre class="codebox mt-2" id="prev-3"></pre>
+                  </details>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Prompt Base -->
+        <section class="tab-pane fade" id="promptbase" role="tabpanel" aria-labelledby="promptbase-tab">
+          <div class="glass rounded-3 p-3">
+            <h5 class="mb-3">Questionário VEO3 (20 perguntas) — copiar e colar</h5>
+            <div class="position-relative">
+              <button class="btn btn-sm btn-dark copy-btn" data-copy-target="#questionnaireText"><i class="bi bi-clipboard"></i> Copiar</button>
+<pre class="codebox" id="questionnaireText">1) Onde exatamente se passa a cena? (local, ponto de referência, horário do dia, clima)
+2) Qual o estilo/atmosfera do ambiente? (ex.: documental, cinematográfico, hiper-realista)
+3) Quais elementos essenciais de cenário aparecem? (liste 5–8; indique se há logomarcas/rostos a evitar)
+4) Texturas e materiais predominantes? (metal, vidro, concreto, etc.)
+5) Profundidade/composição? (camadas, bokeh, regra dos terços, headroom/lead room)
+6) Quem é o personagem principal? (idade, gênero, etnia, papel)
+7) Aparência física? (pele, cabelo, olhos, marcas; nível de energia)
+8) Vestuário e acessórios? (cores que harmonizam com o ambiente)
+9) Expressão e postura? (sereno, tenso; ereto, inclinado; olhar para/fora da câmera)
+10) Gestos e microações? (apontar, acenar, leve ênfase com a mão)
+11) O que acontece exatamente em 8s? Descreva em timeline:
+    - 0,0–2,0s:
+    - 2,0–4,0s:
+    - 4,0–6,0s:
+    - 6,0–8,0s:
+12) Ritmo da ação? (lento, moderado, frenético)
+13) Enquadramento e câmera? (plano, ângulo, posição; 16:9; 24/30fps; referência de lente ex.: ~50mm equivalente)
+14) Movimento de câmera? (parada, leve pan/tilt, dolly/steadicam; velocidade aproximada)
+15) Iluminação? (natural/artificial; direção; difusão; hora do dia)
+16) Cor e contraste? (quente/frio, sombras/reflexos, LUT/grade desejado)
+17) Paleta de cores dominante? (3–6 cores)
+18) Som ambiente e SFX? (liste; defina ducking do ambiente durante fala, ex.: -8 dB)
+19) Há fala? Se sim, descreva:
+    - Voz (masculina/feminina, idade, sotaque)
+    - Texto exato da fala (em pt-BR, até ~4s de duração)
+    - Tom emocional (firme, calmo, urgente)
+20) Clima emocional geral e restrições? (tensão, esperança; privacidade, blur de terceiros, evitar logos)</pre>
+            </div>
+          </div>
+
+          <div class="glass rounded-3 p-3 mt-3">
+            <h5 class="mb-2">Prompt do Assistente (versão resumida) — copiar e colar</h5>
+            <p class="small-muted">Inclui gatilho “VEO3”, coleta das respostas, pedido de resumo e geração da saída final em Markdown (inglês), com falas em pt-BR e sem legendas.</p>
+            <div class="position-relative">
+              <button class="btn btn-sm btn-dark copy-btn" data-copy-target="#systemPrompt"><i class="bi bi-clipboard"></i> Copiar</button>
+<pre class="codebox" id="systemPrompt">You are “VEO3 Scene Builder”, a specialist assistant that designs 8-second scenes for VEO 3.
+TRIGGER: When the user types “VEO3”, ask the 20 questions (pt-BR). Accept free-form answers. Then ask for a 2–3 sentence summary (pt-BR). Finally, output an English Markdown scene sheet (no emojis), keeping any spoken line in pt-BR and forbidding on-screen text/subtitles.
+Constraints: 1080p, 16:9, 30fps by default; single take; ambience ducked ~8 dB under dialogue; avoid logos and identifiable third-party faces when requested.</pre>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="py-4">
+    <div class="container text-center">
+      <div class="small footer-note">Feito para a oficina: <strong>Como Criar Prompts para Vídeos com IA (VEO 3)</strong> • Entrega final: Markdown (inglês), falas em pt-BR, sem legendas • Inclui Q&A completo.</div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  // ---------- Data for 20 questions with succinct tips ----------
+  const QUESTIONS = [
+    { label: "1) Onde a cena se passa?", tip: "Local exato, referência visível, horário e clima. Ex.: 'Cais do Porto de Santos, 15h, nublado'." },
+    { label: "2) Estilo/atmosfera do ambiente", tip: "Documental, cinematográfico, hiper-realista, etc." },
+    { label: "3) Elementos essenciais de cenário", tip: "Liste 5–8 itens relevantes e restrições (logos/rostos)." },
+    { label: "4) Texturas e materiais", tip: "Metal, vidro, concreto, madeira, asfalto…" },
+    { label: "5) Profundidade e composição", tip: "Camadas, bokeh, regra dos terços, headroom/lead room." },
+    { label: "6) Quem é o personagem principal?", tip: "Idade, gênero, etnia e papel." },
+    { label: "7) Aparência física", tip: "Pele, cabelo, olhos, marcas; energia." },
+    { label: "8) Vestuário e acessórios", tip: "Cores que harmonizam com a paleta; itens-chave visuais." },
+    { label: "9) Expressão e postura", tip: "Ex.: sério porém composto; ereto; olhar para/fora da câmera." },
+    { label: "10) Gestos e microações", tip: "Apontar, acenar, ênfase leve com a mão; evite excessos." },
+    { label: "11) Timeline de 8s (0–8s)", tip: "Descreva 0–2s, 2–4s, 4–6s, 6–8s." },
+    { label: "12) Ritmo da ação", tip: "Lento, moderado ou frenético." },
+    { label: "13) Enquadramento e câmera", tip: "Plano, ângulo, posição; 16:9; 24/30fps; lente ~mm." },
+    { label: "14) Movimento de câmera", tip: "Parada, leve pan/tilt, dolly/steadicam; velocidade." },
+    { label: "15) Iluminação", tip: "Natural/artificial; direção; difusão; hora do dia." },
+    { label: "16) Cor e contraste", tip: "Quente/frio; sombras/reflexos; LUT/grade (se houver)." },
+    { label: "17) Paleta de cores dominante", tip: "3–6 cores principais." },
+    { label: "18) Som ambiente e SFX", tip: "Sons e efeitos; ducking durante fala (ex.: -8 dB)." },
+    { label: "19) Fala (pt-BR)", tip: "Texto exato (até ~4s), voz (sexo, idade, sotaque) e tom." },
+    { label: "20) Clima emocional e restrições", tip: "Tensão, esperança; privacidade, blur, evitar logos." }
+  ];
+
+  // ---------- Populate Fundamentals accordion ----------
+  const fundAcc = document.getElementById('fundAccordion');
+  QUESTIONS.forEach((q, i) => {
+    const id = `fund-item-${i}`;
+    fundAcc.insertAdjacentHTML('beforeend', `
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h-${id}">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-${id}" aria-expanded="false">
+            ${q.label}
+          </button>
+        </h2>
+        <div id="c-${id}" class="accordion-collapse collapse" aria-labelledby="h-${id}" data-bs-parent="#fundAccordion">
+          <div class="accordion-body">
+            <div class="q-tip">💡 ${q.tip}</div>
+          </div>
+        </div>
+      </div>
+    `);
+  });
+
+  // ---------- Build single-form questionnaire (no effects) ----------
+  const formContainer = document.getElementById('formContainer');
+  const answers = {};
+  function renderForm(){
+    formContainer.innerHTML = '';
+    QUESTIONS.forEach((q, idx)=>{
+      formContainer.insertAdjacentHTML('beforeend', `
+        <div class="col-12">
+          <label for="q-${idx+1}" class="form-label q-label">${q.label}</label>
+          <div class="q-tip mb-2">Dica: ${q.tip}</div>
+          <textarea class="form-control" id="q-${idx+1}" placeholder="Escreva aqui..."></textarea>
+        </div>
+      `);
+    });
+  }
+  renderForm();
+
+  // ---------- Random fill ----------
+  const randomPool = {
+    locais: ["Café de bairro em São Paulo, 17h, garoa fina", "Terraço de prédio no Centro, 08h, céu aberto", "Cais do porto, 15h, nublado", "Praça arborizada, 12h, luz dura"],
+    estilos: ["documental", "cinematográfico", "hiper-realista"],
+    elementos: ["bancos de madeira, fachada com neon, máquina de espresso, xícaras empilhadas, janela com gotas de chuva"],
+    texturas: ["madeira envernizada, metal escovado, vidro condensado"],
+    comp: ["plano médio, regra dos terços, fundo com bokeh leve"],
+    pessoa: ["mulher, 28 anos, brasileira, barista", "homem, 55 anos, brasileiro, especialista portuário"],
+    apar: ["pele clara, cabelo castanho preso, olhos verdes, energia serena", "pele marcada de sol, cabelo grisalho curto, olhos castanhos, energia firme"],
+    roupa: ["avental marrom, camisa creme, brincos pequenos", "colete refletivo laranja, camisa azul-clara, capacete branco"],
+    exp: ["sorriso leve; postura ereta; olhar fora da câmera", "sério porém composto; olhar fora da câmera"],
+    gesto: ["apoia a xícara no balcão e faz leve gesto com a mão", "aponta ao fundo e enfatiza com a mão"],
+    timeline: ["0–2s: aproxima a xícara; 2–4s: fala curta; 4–6s: leve gesto; 6–8s: respira e conclui"],
+    ritmo: ["moderado", "lento"],
+    cam: ["plano médio; 16:9; 30fps; ~50mm; altura dos olhos"],
+    mov: ["câmera parada com microajuste de foco", "leve pan para a direita (lento)"],
+    luz: ["luz natural difusa pela janela", "luz de céu nublado, sem sombras duras"],
+    cor: ["temperatura quente; sombras suaves; sem reflexos fortes"],
+    paleta: ["marrom, creme, cobre, âmbar", "azul-claro, cinza, laranja"],
+    som: ["ambiente de cafeteria, porta abrindo, chuva leve; ducking -8 dB na fala"],
+    fala: [
+      "Voz feminina, 28, paulistana — \"A gente transforma pequenas pausas em momentos de cuidado.\"" ,
+      "Voz masculina, 55, paulistana — \"Gargalos de infraestrutura atrasam toda a operação.\"" 
+    ],
+    clima: ["aconchego e foco", "tensão profissional; responsabilidade"],
+  };
+  function rp(a){ return a[Math.floor(Math.random()*a.length)]; }
+  function fillRandom(){
+    const rnd = [
+      rp(randomPool.locais), rp(randomPool.estilos), rp(randomPool.elementos), rp(randomPool.texturas),
+      rp(randomPool.comp), rp(randomPool.pessoa), rp(randomPool.apar), rp(randomPool.roupa),
+      rp(randomPool.exp), rp(randomPool.gesto), rp(randomPool.timeline), rp(randomPool.ritmo),
+      rp(randomPool.cam), rp(randomPool.mov), rp(randomPool.luz), rp(randomPool.cor),
+      rp(randomPool.paleta), rp(randomPool.som), rp(randomPool.fala), rp(randomPool.clima)
+    ];
+    rnd.forEach((val, i)=>{
+      document.getElementById(`q-${i+1}`).value = val;
+      answers[i+1] = val;
+    });
+    document.getElementById('resumo').value = "Resumo conciso alinhado ao exemplo aleatório selecionado.";
+  }
+  document.getElementById('btnRandom').addEventListener('click', fillRandom);
+
+  document.getElementById('btnReset').addEventListener('click', ()=>{
+    Object.keys(answers).forEach(k=> delete answers[k]);
+    document.querySelectorAll('textarea[id^="q-"]').forEach(el=> el.value='');
+    document.getElementById('resumo').value='';
+    document.getElementById('finalOutput').textContent='';
+    document.getElementById('outputPanel').style.display='none';
+    document.getElementById('btnCopyOutput').disabled = true;
+    document.getElementById('btnCopyOutputTop').disabled = true;
+    document.getElementById('btnDownload').disabled = true;
+  });
+
+  // ---------- Generate Final Output (includes Q&A) ----------
+  function safe(val){ return (val||'').toString().trim(); }
+  function splitTimeline(s){
+    if(!s) return {a:'',b:'',c:'',d:''};
+    const parts = s.split(/[\n;]+/).map(v=>v.trim()).filter(Boolean);
+    return { a:parts[0]||'', b:parts[1]||'', c:parts[2]||'', d:parts[3]||'' };
+  }
+  function extractDialogue(q19){
+    const m = q19.match(/["“](.+?)["”]/);
+    const line = m ? m[1] : q19;
+    return line.replace(/\n/g,' ').trim();
+  }
+  function makeTitle(loc, mood){
+    const base = (loc||'Concise Scene').split(',')[0].trim();
+    const moodWord = (mood||'').split(/[ ,]/)[0];
+    return `${base} — ${moodWord || 'Scene'}`;
+  }
+  function buildQnA(q){
+    const qs = [
+      "1) Onde exatamente se passa a cena?",
+      "2) Qual o estilo/atmosfera do ambiente?",
+      "3) Quais elementos essenciais de cenário aparecem?",
+      "4) Texturas e materiais predominantes?",
+      "5) Profundidade/composição?",
+      "6) Quem é o personagem principal?",
+      "7) Aparência física?",
+      "8) Vestuário e acessórios?",
+      "9) Expressão e postura?",
+      "10) Gestos e microações?",
+      "11) O que acontece exatamente em 8s? Timeline",
+      "12) Ritmo da ação?",
+      "13) Enquadramento e câmera?",
+      "14) Movimento de câmera?",
+      "15) Iluminação?",
+      "16) Cor e contraste?",
+      "17) Paleta de cores dominante?",
+      "18) Som ambiente e SFX?",
+      "19) Fala (pt-BR)?",
+      "20) Clima emocional e restrições?"
+    ];
+    let block = "## Prompt Q&A (pt-BR)\n";
+    for(let i=1;i<=20;i++){
+      block += `**${qs[i-1]}**\n${safe(q[i])}\n\n`;
+    }
+    return block;
+  }
+
+  function collectAnswers(){
+    const q = {};
+    for(let i=1;i<=20;i++){
+      q[i] = safe(answers[i] || document.getElementById(`q-${i}`)?.value);
+    }
+    return q;
+  }
+
+  function generateOutput(){
+    const q = collectAnswers();
+    const resumo = safe(document.getElementById('resumo').value);
+    const tl = splitTimeline(q[11]);
+    const title = makeTitle(q[1], q[2]);
+    const dialogue = extractDialogue(q[19]);
+    const qna = buildQnA(q);
+
+    const md = `# ${title}
+**Scene Setup:** ${resumo || 'An 8-second continuous shot built from the answers below.'}
+Location & Atmosphere: ${q[1]} • ${q[2]}.
+Key Set Elements: ${q[3]}.
+Textures: ${q[4]}.
+Background Activity & Privacy: ${q[20]}.
+  
+**Subject & Performance:** ${q[6]}. Appearance: ${q[7]}. Wardrobe: ${q[8]}. Expression/Posture: ${q[9]}. Gestures: ${q[10]}.
+  
+**Camera & Framing:** ${q[13]}.
+  
+**Movement:** ${q[14]}.
+  
+**Lighting & Color:** ${q[15]} • ${q[16]} • Palette: ${q[17]}.
+  
+**Audio:** Ambience/SFX: ${q[18]}. Mix: ambience ducked ~8 dB under dialogue. No on-screen text or subtitles.
+  
+## 8-Second Timeline
+- 0.0–2.0s: ${tl.a}
+- 2.0–4.0s: ${tl.b}
+- 4.0–6.0s: ${tl.c}
+- 6.0–8.0s: ${tl.d}
+  
+## Spoken Line (pt-BR)
+“${dialogue}”
+  
+## Delivery Constraints
+1080p; 16:9; 30fps; single take; dialogue intelligibility prioritized; remove/avoid visible logos and identifiable third-party faces where requested.
+
+${qna}`;
+
+    document.getElementById('finalOutput').textContent = md;
+    document.getElementById('outputPanel').style.display = 'block';
+    document.getElementById('btnCopyOutput').disabled = false;
+    document.getElementById('btnCopyOutputTop').disabled = false;
+    document.getElementById('btnDownload').disabled = false;
+  }
+  document.getElementById('btnGenerate').addEventListener('click', generateOutput);
+
+  // Copy and download handlers
+  document.getElementById('btnCopyOutput').addEventListener('click', ()=>{
+    const txt = document.getElementById('finalOutput').textContent;
+    navigator.clipboard.writeText(txt);
+  });
+  document.getElementById('btnCopyOutputTop').addEventListener('click', ()=>{
+    const txt = document.getElementById('finalOutput').textContent;
+    navigator.clipboard.writeText(txt);
+  });
+  document.querySelectorAll('[data-copy-target]').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      const target = e.currentTarget.getAttribute('data-copy-target');
+      const txt = document.querySelector(target)?.textContent || '';
+      navigator.clipboard.writeText(txt);
+    });
+  });
+  document.getElementById('btnDownload').addEventListener('click', ()=>{
+    const txt = document.getElementById('finalOutput').textContent;
+    const blob = new Blob([txt], {type:'text/markdown'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'veo3_scene.md';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  });
+
+  // ---------- Examples (load & preview must include Q&A) ----------
+  const EXAMPLES = {
+    1: {
+      1:"Café de bairro em São Paulo, 17h, garoa fina",
+      2:"cinematográfico, aconchegante",
+      3:"máquina de espresso, balcão de madeira, xícaras empilhadas, janela com gotas",
+      4:"madeira envernizada, metal escovado, vidro condensado",
+      5:"plano médio; regra dos terços; fundo com bokeh leve",
+      6:"mulher, 28 anos, brasileira, barista",
+      7:"pele clara, cabelo castanho preso, olhos verdes; energia serena",
+      8:"avental marrom, camisa creme, brincos pequenos",
+      9:"sorriso leve; postura ereta; olhar levemente fora da câmera",
+      10:"apoia a xícara no balcão, faz leve gesto com a mão",
+      11:"0–2s: vapor sobe da xícara; 2–4s: ela diz a linha; 4–6s: gesto sutil; 6–8s: pausa respirada",
+      12:"moderado",
+      13:"plano médio; 16:9; 30fps; ~50mm; altura dos olhos",
+      14:"câmera parada; microajuste de foco",
+      15:"luz natural difusa pela janela lateral; bounce suave",
+      16:"quente, sombras suaves; sem reflexos fortes",
+      17:"marrom, creme, cobre, âmbar",
+      18:"ambiente de cafeteria, porta abrindo, chuva leve; ducking -8 dB",
+      19:"Voz feminina, 28, paulistana — \"A gente transforma pequenas pausas em momentos de cuidado.\"",
+      20:"clima de aconchego; evitar logos de terceiros nas xícaras"
+    },
+    2: {
+      1:"Avenida Paulista, 17h30, céu nublado leve; fluxo urbano intenso",
+      2:"documental, realista",
+      3:"ônibus, carros, pedestres, semáforos, fachadas comerciais",
+      4:"asfalto molhado, metal, vidro, concreto",
+      5:"plano médio fechado com fundo desfocado, regra dos terços",
+      6:"homem, 40 anos, brasileiro, analista de mobilidade",
+      7:"pele parda, cabelo curto, olhos castanhos; energia assertiva",
+      8:"camisa azul, jaqueta leve, mochila a tiracolo",
+      9:"expressão séria; postura ereta; olhar fora da câmera",
+      10:"aponta para o tráfego ao fundo; ênfase breve com a mão",
+      11:"0–2s: sirene distante; 2–4s: fala curta; 4–6s: gesto; 6–8s: retorno ao foco",
+      12:"moderado",
+      13:"plano médio; 16:9; 30fps; ~50mm",
+      14:"leve pan para enquadrar melhor o fundo (lento)",
+      15:"luz natural difusa (fim de tarde)",
+      16:"neutra/fria; sombras leves",
+      17:"azul, cinza, branco, vermelho pontual",
+      18:"tráfego urbano, passos, sirene distante; ducking -8 dB",
+      19:"Voz masculina, 40, paulistana — \"Mobilidade eficiente começa com dados e planejamento.\"",
+      20:"tensão profissional; evitar logos em fachadas e blur de rostos de transeuntes"
+    },
+    3: {
+      1:"Estúdio minimalista, fundo cinza neutro",
+      2:"clean, focado na fala",
+      3:"banco alto, microfone boom fora de quadro",
+      4:"pano fosco, metal do suporte",
+      5:"plano americano, centralizado; headroom controlado",
+      6:"mulher, 35 anos, brasileira, apresentadora",
+      7:"pele morena, cabelo cacheado curto, olhos castanhos; energia confiante",
+      8:"blazer preto, camiseta branca, acessório discreto",
+      9:"expressão firme; postura ereta; contato direto com a câmera",
+      10:"gesto sutil com mão direita na ênfase da fala",
+      11:"0–2s: respira e encara; 2–4s: fala; 4–6s: breve gesto; 6–8s: fecha com micro-sorriso",
+      12:"lento/moderado",
+      13:"plano americano; 16:9; 30fps; ~50mm",
+      14:"câmera estática",
+      15:"key light suave 45°, fill leve; fundo neutro",
+      16:"ligeiramente quente; contraste moderado",
+      17:"preto, branco, cinza",
+      18:"ambiente controlado; silêncio; ruído de sala mínimo",
+      19:"Voz feminina, 35, neutra — \"Ideias claras viram vídeos melhores.\"",
+      20:"foco total na fala; sem marcas"
+    }
+  };
+
+  function previewFromObject(ex){
+    const tl = (ex[11]||"").split(/[\n;]+/);
+    const title = (ex[1]||"Cena").split(',')[0] + " — Preview";
+    // Build Q&A block
+    const qs = [
+      "1) Onde exatamente se passa a cena?",
+      "2) Qual o estilo/atmosfera do ambiente?",
+      "3) Quais elementos essenciais de cenário aparecem?",
+      "4) Texturas e materiais predominantes?",
+      "5) Profundidade/composição?",
+      "6) Quem é o personagem principal?",
+      "7) Aparência física?",
+      "8) Vestuário e acessórios?",
+      "9) Expressão e postura?",
+      "10) Gestos e microações?",
+      "11) O que acontece exatamente em 8s? Timeline",
+      "12) Ritmo da ação?",
+      "13) Enquadramento e câmera?",
+      "14) Movimento de câmera?",
+      "15) Iluminação?",
+      "16) Cor e contraste?",
+      "17) Paleta de cores dominante?",
+      "18) Som ambiente e SFX?",
+      "19) Fala (pt-BR)?",
+      "20) Clima emocional e restrições?"
+    ];
+    let qna = "## Prompt Q&A (pt-BR)\n";
+    for(let i=1;i<=20;i++){ qna += `**${qs[i-1]}**\n${ex[i]||''}\n\n`; }
+
+    return `# ${title}
+**Scene Setup:** Location & Atmosphere: ${ex[1]} • ${ex[2]}.
+Key Set Elements: ${ex[3]}. Textures: ${ex[4]}.
+**Subject & Performance:** ${ex[6]}. Appearance: ${ex[7]}. Wardrobe: ${ex[8]}. Expression/Posture: ${ex[9]}. Gestures: ${ex[10]}.
+**Camera & Framing:** ${ex[13]}. **Movement:** ${ex[14]}.
+**Lighting & Color:** ${ex[15]} • ${ex[16]} • Palette: ${ex[17]}.
+**Audio:** ${ex[18]}.
+## 8-Second Timeline
+- 0.0–2.0s: ${tl[0]||''}
+- 2.0–4.0s: ${tl[1]||''}
+- 4.0–6.0s: ${tl[2]||''}
+- 6.0–8.0s: ${tl[3]||''}
+## Spoken Line (pt-BR)
+“${(ex[19]||'').replace(/^.*?[—-]\s*/,'')}”
+## Delivery Constraints
+1080p; 16:9; 30fps; single take; dialogue intelligibility prioritized; avoid logos and identifiable faces.
+
+${qna}`;
+  }
+
+  document.querySelectorAll('.load-example').forEach(b=> b.addEventListener('click', e=>{
+    const n = e.currentTarget.dataset.example;
+    const ex = EXAMPLES[n];
+    if(!ex) return;
+    for(let i=1;i<=20;i++){
+      const el = document.getElementById(`q-${i}`);
+      if(el){ el.value = ex[i] || ''; answers[i]=ex[i] || ''; }
+    }
+    document.getElementById('resumo').value = "Resumo conciso alinhado ao exemplo selecionado.";
+    // switch to questionnaire tab
+    const tab = new bootstrap.Tab(document.querySelector('#wizard-tab'));
+    tab.show();
+  }));
+
+  document.querySelectorAll('.preview-example').forEach(b=> b.addEventListener('click', e=>{
+    const n = e.currentTarget.dataset.example;
+    const ex = EXAMPLES[n];
+    if(!ex) return;
+    const md = previewFromObject(ex);
+    document.getElementById(`prev-${n}`).textContent = md;
+  }));
+  </script>
+</body>
+</html>

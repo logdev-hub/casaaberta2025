@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="pt-BR" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prompts Inteligentes para Gestão e Negócios — Oficina</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root{
+      --grad: linear-gradient(135deg,#0ea5e9, #22c55e);
+    }
+    body{
+      background: #f7f9fc;
+    }
+    .hero{
+      background: var(--grad);
+      color:#fff;
+      border-bottom-left-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+    }
+    .chip{
+      display:inline-block; padding:.25rem .6rem; border-radius:999px;
+      background:#eef2ff; color:#4338ca; font-weight:600; margin:.15rem; font-size:.8rem;
+    }
+    .chip.alt{ background:#ecfeff; color:#0891b2}
+    .chip.warn{ background:#fff7ed; color:#c2410c}
+    .card{
+      border:0; box-shadow: 0 8px 24px rgba(15,23,42,.08);
+      border-radius: 1rem;
+    }
+    .section-title{
+      font-weight:800; letter-spacing:.2px;
+    }
+    .reveal{ opacity:0; transform: translateY(16px); transition: all .6s ease}
+    .reveal.show{ opacity:1; transform:none}
+    .textarea-small{ min-height: 220px}
+    .textarea-large{ min-height: 360px}
+    .floating-tools{
+      position: fixed; right: 16px; bottom: 16px; z-index: 9999;
+      display: flex; flex-direction: column; gap: .5rem;
+    }
+    .btn-round{ border-radius: 999px}
+    .sticky-top-blur{
+      position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(8px);
+      background: rgba(255,255,255,.75); border-bottom: 1px solid rgba(0,0,0,.06)
+    }
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      background:#111827; color:#f9fafb; border-radius:.5rem; padding:.5rem .75rem; font-size:.9rem
+    }
+    .table-formulas td, .table-formulas th{ vertical-align: middle }
+    .badge-tool{font-size:.75rem}
+    .search-pill{ border-radius:999px}
+    .list-dot li{ margin:.35rem 0}
+    .copy-btn{ white-space: nowrap }
+    .footer{
+      color:#64748b
+    }
+    /* Dark tweaks */
+    [data-bs-theme="dark"] body{ background:#0b1220 }
+    [data-bs-theme="dark"] .sticky-top-blur{ background: rgba(11,18,32,.75); border-bottom-color: rgba(255,255,255,.06)}
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="sticky-top-blur">
+    <div class="container py-2 d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center gap-2">
+        <span class="fs-4">🤖✨</span>
+        <strong>Prompts Inteligentes • Gestão & Negócios</strong>
+      </div>
+      <div class="d-none d-md-flex align-items-center gap-2">
+        <a href="#fundamentos" class="btn btn-link">Fundamentos</a>
+        <a href="#prompts" class="btn btn-link">Prompts</a>
+        <a href="#cases" class="btn btn-link">Casos</a>
+        <button id="toggleTheme" class="btn btn-outline-secondary btn-sm">
+          <i class="bi bi-moon-stars"></i> Tema
+        </button>
+        <button id="downloadPage" class="btn btn-primary btn-sm">
+          <i class="bi bi-download"></i> Baixar .html
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero py-5">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <h1 class="display-5 fw-bold">Prompts Inteligentes para Gestão e Negócios: <span class="d-block">Transforme Ideias em Resultados</span></h1>
+          <p class="lead mt-3">💡 Explore como estruturar prompts que aplicam ferramentas de gestão e da qualidade para resolver problemas reais — e saia com modelos prontos para colar na sua IA.</p>
+          <div class="d-flex flex-wrap gap-2 mt-3">
+            <span class="chip"><i class="bi bi-calendar3"></i> 29/08/2025</span>
+            <span class="chip alt"><i class="bi bi-clock"></i> 15:30–16:15</span>
+            <span class="chip warn"><i class="bi bi-lightning-charge"></i> Hands-on</span>
+          </div>
+          <div class="mt-4 d-flex gap-2">
+            <a class="btn btn-light btn-round" href="#prompts"><i class="bi bi-rocket-takeoff"></i> Ir para os Prompts</a>
+            <a class="btn btn-outline-light btn-round" href="#fundamentos"><i class="bi bi-journal-text"></i> Ver Fundamentos</a>
+          </div>
+        </div>
+        <div class="col-lg-5 text-center">
+          <div class="p-3">
+            <img src="https://cdn.jsdelivr.net/gh/hjnilsson/country-flags/svg/br.svg" alt="Bandeira do Brasil" style="width:42px;height:28px;border-radius:4px;box-shadow:0 4px 14px rgba(0,0,0,.25)">
+          </div>
+          <div class="card text-dark">
+            <div class="card-body">
+              <h5 class="card-title">O que você vai fazer?</h5>
+              <p class="mb-2">✅ Entender a estrutura de um prompt profissional<br>✅ Aplicar ferramentas (SIPOC, VSM, Ishikawa, Pareto, BCG, ABC, NPS, EOQ/LEC, etc.)<br>✅ Copiar & testar prompts e casos reais</p>
+              <div class="d-flex gap-2 flex-wrap">
+                <span class="badge text-bg-primary badge-tool">SIPOC</span>
+                <span class="badge text-bg-primary badge-tool">VSM</span>
+                <span class="badge text-bg-primary badge-tool">Takt</span>
+                <span class="badge text-bg-primary badge-tool">Little</span>
+                <span class="badge text-bg-success badge-tool">Ishikawa</span>
+                <span class="badge text-bg-success badge-tool">5 Porquês</span>
+                <span class="badge text-bg-success badge-tool">Pareto</span>
+                <span class="badge text-bg-warning text-dark badge-tool">PDCA</span>
+                <span class="badge text-bg-info text-dark badge-tool">BCG</span>
+                <span class="badge text-bg-info text-dark badge-tool">ABC</span>
+                <span class="badge text-bg-info text-dark badge-tool">OKRs</span>
+                <span class="badge text-bg-secondary badge-tool">NPS</span>
+                <span class="badge text-bg-secondary badge-tool">Kano</span>
+                <span class="badge text-bg-secondary badge-tool">GUT</span>
+                <span class="badge text-bg-dark badge-tool">EOQ/LEC</span>
+                <span class="badge text-bg-dark badge-tool">ROP & ES</span>
+                <span class="badge text-bg-dark badge-tool">S&OP</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+  </header>
+
+  <!-- FUNDAMENTOS -->
+  <section id="fundamentos" class="py-5">
+    <div class="container">
+      <h2 class="section-title mb-3">📚 Fundamentos para Construção de Prompts</h2>
+      <p class="text-secondary">Use esta receita para criar prompts claros, auditáveis e acionáveis:</p>
+      <div class="row g-4">
+        <div class="col-lg-6 reveal">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">🧠 Estrutura Recomendada</h5>
+              <ul class="list-unstyled ms-1 list-dot">
+                <li>🎭 <strong>Papel/Persona:</strong> defina o “quem” (ex.: consultor Lean, analista de qualidade).</li>
+                <li>🏞️ <strong>Contexto:</strong> setor, objetivo, restrições, dados disponíveis.</li>
+                <li>📥 <strong>Entrada estruturada:</strong> peça campos claros (<em>Nome do processo</em>, <em>Demanda</em>, etc.).</li>
+                <li>🧩 <strong>Método/Ferramentas:</strong> cite exatamente o que aplicar (SIPOC, Ishikawa...).</li>
+                <li>🧮 <strong>Fórmulas explícitas:</strong> inclua como calcular (Takt, EOQ/LEC, ROP, NPS...).</li>
+                <li>🧾 <strong>Formato da saída:</strong> seções e tabelas Markdown (5W2H, PDCA, OKRs, etc.).</li>
+                <li>🧪 <strong>Critérios de qualidade:</strong> metas SMART, hipóteses e premissas declaradas.</li>
+                <li>🔁 <strong>Verificação:</strong> riscos, dependências, “quick wins” vs projetos estruturantes.</li>
+                <li>🌐 <strong>Idioma & tom:</strong> especifique pt-BR, estilo objetivo e didático.</li>
+              </ul>
+              <div class="alert alert-info mb-0"><i class="bi bi-lightbulb"></i> Dica: peça sempre um <strong>Plano de Ação 5W2H</strong> no final para garantir execução.</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 reveal">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">📏 Fórmulas & Conceitos-Chave</h5>
+              <div class="table-responsive">
+                <table class="table table-sm table-formulas">
+                  <tbody>
+                    <tr><th>SIPOC</th><td>Mapa de alto nível: <em>Suppliers → Inputs → Process → Outputs → Customers</em></td></tr>
+                    <tr><th>VSM</th><td>Tempo de processo + espera; <em>Lead Time</em> e % Valor Agregado</td></tr>
+                    <tr><th>Takt</th><td><span class="kbd">Takt = Tempo disponível / Demanda</span></td></tr>
+                    <tr><th>Little</th><td><span class="kbd">WIP ≈ Throughput × Lead time</span> (sistema estável)</td></tr>
+                    <tr><th>Pareto</th><td>80/20: foque nas poucas causas que geram a maior parte do efeito</td></tr>
+                    <tr><th>Ishikawa & 5 Porquês</th><td>Raiz por 6M: Máquina, Método, Mão de Obra, Material, Medição, Meio</td></tr>
+                    <tr><th>NPS</th><td><span class="kbd">NPS = %Promotores − %Detratores</span></td></tr>
+                    <tr><th>EOQ/LEC</th><td><span class="kbd">EOQ = √(2DS/H)</span>, D anual, S pedido, H manter</td></tr>
+                    <tr><th>ROP & ES</th><td><span class="kbd">ROP = d×LT + ES</span>; <span class="kbd">ES = z×σ_LT</span></td></tr>
+                    <tr><th>OKRs</th><td>Objetivo inspirador + 2–4 <em>Key Results</em> mensuráveis</td></tr>
+                    <tr><th>PDCA</th><td>Plan → Do → Check → Act (rodadas curtas c/ evidências)</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <small class="text-secondary">Inclua sempre premissas, limites e critérios de aceitação nas saídas.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 p-3 bg-light border rounded">
+        <strong>🔍 Procure por termos nas seções abaixo:</strong>
+        <div class="input-group mt-2">
+          <span class="input-group-text">🔎</span>
+          <input id="search" class="form-control search-pill" placeholder="Ex.: SIPOC, Pareto, OKR, EOQ, NPS, estoque, VSM, 5W2H…">
+          <button id="clearSearch" class="btn btn-outline-secondary">Limpar</button>
+        </div>
+        <small class="text-secondary">O filtro atua em títulos, chips de ferramentas e conteúdo dos textos.</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMPTS -->
+  <section id="prompts" class="py-5">
+    <div class="container">
+      <h2 class="section-title mb-3">🚀 Prompts prontos para usar</h2>
+      <p class="text-secondary">Cada cartão traz um prompt completo, com método, fórmulas e formato de saída. Clique em <em>Copiar Prompt</em> e cole na sua ferramenta de IA.</p>
+
+      <!-- Prompt 1 -->
+      <div class="card mb-4 reveal" data-tags="sipoc vsm takt little perdas gargalo 5w2h">
+        <div class="card-body">
+          <h5 class="card-title">1) 🏭 Fluxo e Gargalos — <span class="text-primary">SIPOC + VSM + Takt + Little → 5W2H</span></h5>
+          <div class="mb-2">
+            <span class="chip">SIPOC</span><span class="chip">VSM</span><span class="chip">Takt</span><span class="chip">Lei de Little</span><span class="chip">7 Perdas</span><span class="chip">5W2H</span>
+          </div>
+          <textarea class="form-control textarea-large" id="prompt1" readonly>
+Você é um consultor de melhoria contínua. Analise o processo abaixo usando SIPOC e Mapa de Fluxo de Valor (VSM) para identificar gargalos e perdas. Calcule métricas e proponha um plano 5W2H.
+
+[ENTRADA DO USUÁRIO]
+• Nome do processo: …
+• Objetivo do processo: …
+• Escopo (início → fim): …
+• Demandas por período (ex.: unidades/dia): …
+• Tempo disponível no período (min/dia): …
+• Etapas (ordem, tempo de processo, tempo de espera/filas, retrabalhos, WIP estimado):
+  - Ex.: Recebimento (proc=4min; espera=6min; WIP≈12)
+  - …
+• Recursos (pessoas, máquinas, sistemas): …
+• Regras/variantes relevantes: …
+• Problemas percebidos: …
+
+[COMO PROCEDER]
+1) Monte um SIPOC (Suppliers, Inputs, Process, Outputs, Customers) em tabela Markdown.
+2) Descreva um VSM textual (etapas em sequência com tempos de processo e espera).
+3) Calcule:
+   - Tempo Takt = Tempo disponível / Demanda do período
+   - Lead time = soma(proc) + soma(esperas)
+   - %VA = (soma(tempos de valor agregado) / lead time) × 100
+   - Lei de Little: WIP ≈ Throughput × Lead time (explique premissas)
+4) Aponte gargalos (etapas com maior espera/WIP ou razão proc/takt > 1).
+5) Classifique perdas (superprodução, espera, transporte, processo em excesso, estoques, movimentação, defeitos).
+6) Liste 3 quick wins (≤ 2 semanas) e 3 iniciativas estruturantes (1–3 meses).
+7) Riscos e dependências (curto e médio prazo).
+
+[SAÍDA (FORMATO)]
+## Diagnóstico
+- SIPOC (tabela)
+- VSM textual com tempos
+- Métricas calculadas (Takt, Lead time, %VA, WIP)
+
+## Gargalos & Oportunidades
+- Principais gargalos: …
+- Perdas por tipo: …
+
+## Recomendações
+- Quick wins (3 itens)
+- Projetos estruturantes (3 itens)
+- Riscos e mitigadores
+
+## Plano de Ação 5W2H
+| Item | What (o quê) | Why (por quê) | Where (onde) | When (quando) | Who (quem) | How (como) | How much (custo) |
+|---|---|---|---|---|---|---|---|
+| 1 |  |  |  |  |  |  |  |
+| 2 |  |  |  |  |  |  |  |
+| 3 |  |  |  |  |  |  |  |
+          </textarea>
+          <div class="d-flex gap-2 mt-2">
+            <button class="btn btn-outline-primary copy-btn" data-target="prompt1"><i class="bi bi-clipboard"></i> Copiar Prompt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prompt 2 -->
+      <div class="card mb-4 reveal" data-tags="ishikawa 5 porquês pareto pdca 5w2h causa raiz">
+        <div class="card-body">
+          <h5 class="card-title">2) 🔎 Causa Raiz — <span class="text-primary">Ishikawa + 5 Porquês + Pareto + PDCA → 5W2H</span></h5>
+          <div class="mb-2">
+            <span class="chip">Ishikawa</span><span class="chip">5 Porquês</span><span class="chip">Pareto</span><span class="chip">PDCA</span><span class="chip">5W2H</span>
+          </div>
+          <textarea class="form-control textarea-large" id="prompt2" readonly>
+Você é um especialista em qualidade. Investigue a causa raiz do problema e priorize ações com Pareto. Finalize com um PDCA resumido e 5W2H.
+
+[ENTRADA DO USUÁRIO]
+• Problema (mensurável, com meta e prazo): …
+• Período de análise: …
+• Base resumida de defeitos/ocorrências (Categoria; Quantidade; Observações):
+  - Ex.: Falha de embalagem; 42; fotos anexo…
+  - …
+• Onde ocorre (linhas/lojas/unidades): …
+• Exemplos e evidências: …
+
+[COMO PROCEDER]
+1) Valide o enunciado do problema (SMART) e registre a meta.
+2) Estratifique por 6M (Máquina, Método, Mão de obra, Material, Medição, Meio ambiente).
+3) Monte o Pareto (80/20) das categorias e identifique o “pouco vital”.
+4) Para as 1–2 categorias líderes, conduza 5 Porquês (texto conciso).
+5) Consolide um Diagrama de Ishikawa textual (por 6M).
+6) Defina contramedidas e indicadores de resultado e processo.
+7) Esboce o PDCA:
+   - P (Plano): meta, hipóteses, ações
+   - D (Execução): pilotos/lotes de teste
+   - C (Checagem): métricas, gráfico simples (descrição)
+   - A (Ação): padronização/replicação/correções
+8) Liste riscos e salvaguardas.
+
+[SAÍDA (FORMATO)]
+## Problema & Meta
+- Enunciado SMART: …
+- Meta: …
+
+## Pareto (texto/tabela)
+- Top categorias: … (cobertura % do total)
+
+## Análise de Causa
+- 5 Porquês (para cada top)
+- Ishikawa (por 6M)
+
+## Contramedidas & Métricas
+- Indicadores de resultado (ex.: taxa de defeito %)
+- Indicadores de processo (ex.: aderência a padrão %)
+
+## PDCA (resumo)
+- P: …
+- D: …
+- C: …
+- A: …
+
+## Plano de Ação 5W2H
+| Item | What | Why | Where | When | Who | How | How much |
+|---|---|---|---|---|---|---|---|
+| 1 |  |  |  |  |  |  |  |
+| 2 |  |  |  |  |  |  |  |
+          </textarea>
+          <div class="d-flex gap-2 mt-2">
+            <button class="btn btn-outline-primary copy-btn" data-target="prompt2"><i class="bi bi-clipboard"></i> Copiar Prompt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prompt 3 -->
+      <div class="card mb-4 reveal" data-tags="bcg abc preço portfólio okr 5w2h">
+        <div class="card-body">
+          <h5 class="card-title">3) 📦 Portfólio & Preços — <span class="text-primary">BCG + ABC (Receita/Margem) + OKRs → 5W2H</span></h5>
+          <div class="mb-2">
+            <span class="chip">BCG</span><span class="chip">ABC</span><span class="chip">Elasticidade</span><span class="chip">OKRs</span><span class="chip">5W2H</span>
+          </div>
+          <textarea class="form-control textarea-large" id="prompt3" readonly>
+Você é um gerente de portfólio. Classifique produtos, priorize foco comercial e ajustes de preço usando BCG e ABC, e traduza em OKRs e 5W2H.
+
+[ENTRADA DO USUÁRIO]
+• Lista de SKUs (12 meses): SKU; Receita; Margem %; Custo unit.; Participação de mercado relativa; Crescimento do mercado (% a.a.)
+  - Ex.: SKU-A; R$ 1.200.000; 28%; R$ 35; 0,6; 10%
+  - …
+• Restrições (capacidade, contratos, estoques, canais): …
+• Estratégia desejada (crescer margem? volume? mix?): …
+
+[COMO PROCEDER]
+1) Classifique cada SKU na Matriz BCG:
+   - Eixo X: participação relativa vs. líder; Eixo Y: crescimento do mercado
+   - Saída: Estrela / Vaca Leiteira / Interrogação / Abacaxi
+2) Faça análise ABC por Receita e por Margem (duas visões).
+3) Cruce BCG × ABC para priorizar (ex.: “Estrelas-A”, “Vacas-B”…).
+4) Sinalize ações por alavanca:
+   - Preço (subir/segurar/baixar), Promo, Mix de canal, Descontinuação, Lançamentos
+   - Justifique com elasticidade qualitativa e posição competitiva
+5) Projete impacto (receita/margem) com premissas explícitas.
+6) Defina OKRs trimestrais (3–4 KRs mensuráveis).
+7) Liste riscos e mitigadores.
+
+[SAÍDA (FORMATO)]
+## Classificação
+- Tabela BCG por SKU
+- ABC (Receita e Margem)
+
+## Prioridades & Ações
+- Recomendações por cluster (BCG × ABC)
+- Ajustes de preço e mix (com justificativas)
+
+## OKRs (Trimestre)
+- Objetivo: …
+- KR1: …
+- KR2: …
+- KR3: …
+
+## Plano de Ação 5W2H
+| Item | What | Why | Where | When | Who | How | How much |
+|---|---|---|---|---|---|---|---|
+| 1 |  |  |  |  |  |  |  |
+| 2 |  |  |  |  |  |  |  |
+          </textarea>
+          <div class="d-flex gap-2 mt-2">
+            <button class="btn btn-outline-primary copy-btn" data-target="prompt3"><i class="bi bi-clipboard"></i> Copiar Prompt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prompt 4 -->
+      <div class="card mb-4 reveal" data-tags="nps kano gut jornada blueprint pdca 5w2h cx cliente">
+        <div class="card-body">
+          <h5 class="card-title">4) 😊 Experiência do Cliente — <span class="text-primary">NPS + Kano + GUT + Jornada → PDCA + 5W2H</span></h5>
+          <div class="mb-2">
+            <span class="chip">NPS</span><span class="chip">Kano</span><span class="chip">GUT</span><span class="chip">Jornada</span><span class="chip">PDCA</span><span class="chip">5W2H</span>
+          </div>
+          <textarea class="form-control textarea-large" id="prompt4" readonly>
+Você é um líder de CX. Use NPS, Kano e GUT para priorizar melhorias na jornada do cliente e feche com PDCA e 5W2H.
+
+[ENTRADA DO USUÁRIO]
+• Respostas NPS (nota 0–10 e comentários): …
+• Reclamações/solicitações (categoria; qtd; exemplo): …
+• Ideias/“features” pedidas: …
+• Principais canais (loja, WhatsApp, site, app): …
+• Momentos críticos atuais (onboarding, entrega, suporte, cobrança): …
+
+[COMO PROCEDER]
+1) Calcule NPS = %Promotores – %Detratores e resuma temas dos comentários.
+2) Classifique ideias/requisitos via Kano (Must-be, One-dimensional, Attractive).
+3) Priorização com Matriz GUT (Gravidade × Urgência × Tendência) → ranking.
+4) Desenhe a jornada/blueprint textual com “momentos da verdade” e dores.
+5) Defina melhorias por canal/momento, com métricas de resultado (ex.: NPS, CES) e processo (ex.: tempo de 1ª resposta).
+6) Estruture PDCA (foco nas 3 prioridades do topo GUT).
+7) Riscos, dependências e quick wins.
+
+[SAÍDA (FORMATO)]
+## NPS & Insights
+- NPS atual: …
+- Temas recorrentes: …
+
+## Priorização (Kano + GUT)
+- Tabela com classificação e score GUT
+
+## Jornada & Melhorias
+- Jornada textual por etapas
+- Métricas de resultado e processo
+
+## PDCA (resumo)
+- P, D, C, A com checkpoints mensais
+
+## Plano de Ação 5W2H
+| Item | What | Why | Where | When | Who | How | How much |
+|---|---|---|---|---|---|---|---|
+| 1 |  |  |  |  |  |  |  |
+| 2 |  |  |  |  |  |  |  |
+          </textarea>
+          <div class="d-flex gap-2 mt-2">
+            <button class="btn btn-outline-primary copy-btn" data-target="prompt4"><i class="bi bi-clipboard"></i> Copiar Prompt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prompt 5 -->
+      <div class="card mb-4 reveal" data-tags="abc eoq lec ponto de pedido estoque segurança s&op 5w2h">
+        <div class="card-body">
+          <h5 class="card-title">5) 📊 Demanda & Estoques — <span class="text-primary">ABC + EOQ/LEC + ROP + S&OP → 5W2H</span></h5>
+          <div class="mb-2">
+            <span class="chip">ABC</span><span class="chip">EOQ/LEC</span><span class="chip">Ponto de Pedido</span><span class="chip">Estoque de Segurança</span><span class="chip">S&OP</span><span class="chip">5W2H</span>
+          </div>
+          <textarea class="form-control textarea-large" id="prompt5" readonly>
+Você é um planejador S&OP. Classifique itens, dimensione lotes e pontos de pedido e proponha ações.
+
+[ENTRADA DO USUÁRIO]
+• Itens (SKU; demanda mensal média; desvio-padrão mensal; lead time em dias; estoque atual; custo por pedido (S); custo de manter 1 un/ano (H); nível de serviço alvo):
+  - Ex.: SKU-X; 1.200; 300; 15; 2.000; R$ 80; R$ 12; 95%
+  - …
+• Restrições (mínimos de compra, capacidade, shelf-life): …
+
+[COMO PROCEDER]
+1) Classifique ABC pela demanda anual (ou valor anual: demanda × custo).
+2) Para itens A e B, calcule:
+   - EOQ (LEC) = sqrt(2 × D × S / H), onde D = demanda anual
+   - Demanda diária d = demanda anual / dias úteis
+   - Ponto de Pedido (ROP) = d × LT + Estoque de Segurança
+   - Estoque de Segurança = z × σ_LT, com z do nível de serviço (aprox.: 90%=1,28; 95%=1,65; 98%=2,05; 99%=2,33)
+   - σ_LT ≈ desvio-padrão diário × sqrt(LT)
+3) Calcule cobertura (dias) = estoque atual / d. Sinalize rupturas/ excesso.
+4) Sugira políticas (revisão contínua s, Q; revisão periódica P, S) por classe ABC.
+5) Consolide um mini S&OP textual (demanda, suprimento, gaps e decisões).
+6) Liste riscos (prazo fornecedor, sazonalidade, MOQs) e mitigadores.
+
+[SAÍDA (FORMATO)]
+## Classificação ABC
+- Tabela por SKU
+
+## Parâmetros de Reposição
+- EOQ, ROP, Estoque de Segurança, Cobertura (dias)
+
+## Recomendações
+- Política por classe (A/B/C)
+- Ajustes por restrições (MOQ, capacidade, shelf-life)
+
+## Mini S&OP
+- Alinhamento Demanda × Suprimento × Decisões
+
+## Plano de Ação 5W2H
+| Item | What | Why | Where | When | Who | How | How much |
+|---|---|---|---|---|---|---|---|
+| 1 |  |  |  |  |  |  |  |
+| 2 |  |  |  |  |  |  |  |
+          </textarea>
+          <div class="d-flex gap-2 mt-2">
+            <button class="btn btn-outline-primary copy-btn" data-target="prompt5"><i class="bi bi-clipboard"></i> Copiar Prompt</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section id="cases" class="py-5">
+    <div class="container">
+      <h2 class="section-title mb-3">🧪 Casos de teste (dados de entrada)</h2>
+      <p class="text-secondary">Cada caso corresponde ao prompt com o mesmo número. Clique em <em>Copiar Caso</em> para levar os dados de entrada junto.</p>
+
+      <!-- Case 1 -->
+      <div class="card mb-4 reveal" data-tags="cd picking packing sipoc vsm gargalo 5w2h">
+        <div class="card-body">
+          <h5 class="card-title">Caso 1 — Picking &amp; Packing de kits editoriais</h5>
+          <textarea class="form-control textarea-small" id="case1" readonly>
+[ENTRADA DO USUÁRIO]
+- Nome do processo: Picking & Packing de kits editoriais
+- Objetivo do processo: Expedir 95% dos pedidos até 24h (D+1)
+- Escopo (início → fim): Pedido liberado no OMS → pacote coletado pela transportadora
+- Demandas por período: 160 pedidos/dia (pico 200)
+- Tempo disponível no período: 420 min/dia (7h úteis)
+- Etapas (ordem; tempo de processo; tempo de espera; WIP):
+  1. Triagem de pedidos — proc 0,5 min; espera 5 min; WIP 20
+  2. Separação (picking) — proc 2,8 min; espera 8 min; WIP 35
+  3. Conferência — proc 1,4 min; espera 4 min; WIP 18
+  4. Embalagem — proc 2,2 min; espera 10 min; WIP 40
+  5. Faturamento/nota — proc 0,9 min; espera 6 min; WIP 25
+  6. Expedição/coleta — proc 1,0 min; espera 12 min; WIP 50
+- Recursos: 3 separadores, 2 conferentes, 2 embaladores, 1 fiscal, 1 expedidor
+- Regras/variantes: 18% com brinde; 12% pedidos multi-SKU (≥4 itens)
+- Problemas percebidos: 7,4% retrabalho por divergência; rupturas “caixa M”; fila na expedição às 16h
+          </textarea>
+          <div class="d-flex gap-2 mt-2">
+            <button class="btn btn-outline-success copy-btn" data-target="case1"><i class="bi bi-clipboard-check"></i> Copiar Caso</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 2 -->
+      <div class="card mb-4 reveal" data-tags="qualidade avarias embalagem pareto ishikawa pdca 5 porquês">
+        <div class="card-body">
+          <h5 class="card-title">Caso 2 — Avarias de embalagem (B2C)</h5>
+          <textarea class="form-control textarea-small" id="case2" readonly>
+[ENTRADA DO USUÁRIO]
+- Problema (mensurável, meta, prazo): Reduzir avarias por embalagem de 8,2% para ≤3,0% até 31/10/2025
+- Período de análise: 01–31/08/2025
+- Base (Categoria; Quantidade; Observações):
+  • Caixa amassada; 92; maior em pedidos multi-SKU
+  • Lacre insuficiente; 61; fita única em caixas >2kg
+  • Folha de proteção ausente; 37; turnos de pico
+  • Etiqueta ilegível; 22; impressão baixa densidade
+  • Erro de picking; 21; troca de variação
+  • Umidade/chuva; 14; rotas externas
+  • Manuseio transporte; 11; 2 transportadoras
+- Onde ocorre: CD A (70%), CD B (30%)
+- Evidências: fotos em 37 ocorrências; 12 vídeos de recebimento
+          </textarea>
+          <div class="d-flex gap-2 mt-2">
+            <button class="btn btn-outline-success copy-btn" data-target="case2"><i class="bi bi-clipboard-check"></i> Copiar Caso</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 3 -->
+      <div class="card mb-4 reveal" data-tags="bcg abc preços portfólio okr">
+        <div class="card-body">
+          <h5 class="card-title">Caso 3 — Portfólio AME (12 meses)</h5>
+          <textarea class="form-control textarea-small" id="case3" readonly>
+[ENTRADA DO USUÁRIO]
+SKUs (12 meses): SKU; Receita (R$); Margem %; Custo unit.; Participação relativa; Crescimento mercado (% a.a.)
+- EBO-101; 420.000; 62%; 7; 0,55; 6%
+- CRS-201; 1.200.000; 48%; 58; 0,80; 12%
+- CRS-202; 650.000; 44%; 72; 0,40; 3%
+- KIT-301; 310.000; 70%; 4; 1,10; 1%
+- EBO-102; 180.000; 35%; 9; 0,25; 18%
+- CRS-203; 900.000; 52%; 64; 0,60; 22%
+- WS-401; 220.000; 28%; 110; 0,15; 5%
+- SUB-501; 980.000; 58%; 12; 0,90; 17%
+- APP-601; 150.000; 22%; 19; 0,10; 35%
+- BND-701; 540.000; 55%; 79; 0,50; 9%
+Restrições: mídia +15% no Q4; instrutores ao vivo: 6 turmas/sem; estoque físico zero
+Estratégia: elevar margem +3 p.p. e crescer receita +12% no próximo tri
+          </textarea>
+          <div class="d-flex gap-2 mt-2">
+            <button class="btn btn-outline-success copy-btn" data-target="case3"><i class="bi bi-clipboard-check"></i> Copiar Caso</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 4 -->
+      <div class="card mb-4 reveal" data-tags="nps kano gut jornada cx suporte certificado mobile">
+        <div class="card-body">
+          <h5 class="card-title">Caso 4 — Experiência do cliente (Cursos & Ebooks)</h5>
+          <textarea class="form-control textarea-small" id="case4" readonly>
+[ENTRADA DO USUÁRIO]
+- NPS (últ. 60 dias): 150 respostas — Detratores 39; Passivos 66; Promotores 45
+  Exemplos: “Demora WhatsApp à noite”; “Certificado levou 48h”; “Site mobile confuso”; “Atendimento atencioso”
+- Reclamações/solicitações:
+  • SLA WhatsApp: 58 (filas após 18h)
+  • Pagamento/boletos: 37 (link expira)
+  • Certificado e-mail: 22 (atraso/spam)
+  • Usabilidade mobile: 19 (menus pequenos)
+  • Conteúdo desatualizado: 12 (2 aulas)
+- Features pedidas: Certificado imediato (27); App mobile (23); Parcelamento PIX 3x (18); Trilhas de carreira (15)
+- Canais: WhatsApp 55%, Site 35%, App 7%, Loja 3%
+- Momentos críticos: Onboarding pós-compra; Emissão de certificado; Suporte noturno; Acesso mobile
+          </textarea>
+          <div class="d-flex gap-2 mt-2">
+            <button class="btn btn-outline-success copy-btn" data-target="case4"><i class="bi bi-clipboard-check"></i> Copiar Caso</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 5 -->
+      <div class="card mb-4 reveal" data-tags="abc eoq lec rop estoque segurança s&op embalagens">
+        <div class="card-body">
+          <h5 class="card-title">Caso 5 — Itens de consumo & embalagem</h5>
+          <textarea class="form-control textarea-small" id="case5" readonly>
+[ENTRADA DO USUÁRIO] (22 dias úteis/mês; serviço alvo 95% → z≈1,65)
+| SKU | Descrição | Demanda mensal | Desvio-padrão mensal | LT (dias) | Estoque | S | H |
+| A1 | Papel couchê A4 | 12.000 | 2.400 | 12 | 8.500 | R$120 | R$0,80 |
+| A2 | Caixa envio M | 9.000 | 1.800 | 10 | 5.000 | R$95 | R$0,50 |
+| A3 | Filme bolha rolo | 7.500 | 1.600 | 8 | 3.200 | R$90 | R$0,45 |
+| B1 | Etiqueta térmica 100×150 | 4.200 | 900 | 7 | 1.400 | R$60 | R$0,35 |
+| B2 | Cartucho tinta pigmento | 1.600 | 450 | 20 | 600 | R$150 | R$4,50 |
+| C1 | Brinde marcador AME | 900 | 300 | 25 | 1.200 | R$80 | R$0,25 |
+| C2 | Pasta A3 rígida | 320 | 120 | 15 | 250 | R$70 | R$1,20 |
+| C3 | Etiqueta lacre seladora | 500 | 100 | 5 | 700 | R$40 | R$0,15 |
+Restrições: MOQ A2 = 1.000; B2 validade 18 meses; limite A1: 15.000 un
+          </textarea>
+          <div class="d-flex gap-2 mt-2">
+            <button class="btn btn-outline-success copy-btn" data-target="case5"><i class="bi bi-clipboard-check"></i> Copiar Caso</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-4">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-center">
+        <p class="mb-0 footer">Feito com ❤️ para a oficina • <span id="year"></span></p>
+        <div class="d-flex gap-2">
+          <a href="#prompts" class="btn btn-outline-secondary btn-sm btn-round"><i class="bi bi-arrow-up-right-circle"></i> Subir para Prompts</a>
+          <button id="expandAll" class="btn btn-outline-secondary btn-sm btn-round"><i class="bi bi-arrows-expand"></i> Expandir tudo</button>
+          <button id="collapseAll" class="btn btn-outline-secondary btn-sm btn-round"><i class="bi bi-arrows-collapse"></i> Recolher tudo</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING TOOLS -->
+  <div class="floating-tools">
+    <a href="#fundamentos" class="btn btn-dark btn-round"><i class="bi bi-journal-text"></i></a>
+    <a href="#prompts" class="btn btn-primary btn-round"><i class="bi bi-rocket-takeoff"></i></a>
+    <a href="#cases" class="btn btn-success btn-round"><i class="bi bi-box-seam"></i></a>
+    <button id="backTop" class="btn btn-outline-secondary btn-round"><i class="bi bi-arrow-up"></i></button>
+  </div>
+
+  <!-- TOAST -->
+  <div class="position-fixed bottom-0 start-50 translate-middle-x p-3" style="z-index:1080">
+    <div id="copiedToast" class="toast align-items-center text-bg-success border-0" role="status" aria-live="polite" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          ✅ Copiado para a área de transferência!
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fechar"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Ano no rodapé
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Tema (dark/light)
+    const toggleThemeBtn = document.getElementById('toggleTheme');
+    toggleThemeBtn.addEventListener('click', () => {
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-bs-theme') === 'dark';
+      html.setAttribute('data-bs-theme', isDark ? 'light' : 'dark');
+      toggleThemeBtn.innerHTML = isDark ? '<i class="bi bi-moon-stars"></i> Tema' : '<i class="bi bi-brightness-high"></i> Tema';
+    });
+
+    // Copiar (prompts/cases)
+    const toastLiveExample = document.getElementById('copiedToast');
+    const toast = new bootstrap.Toast(toastLiveExample, { delay: 1400 });
+
+    function copyFrom(targetId){
+      const el = document.getElementById(targetId);
+      el.select();
+      el.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(el.value).then(() => toast.show());
+    }
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => copyFrom(btn.getAttribute('data-target')));
+    });
+
+    // Filtro de busca
+    const searchInput = document.getElementById('search');
+    const clearSearch = document.getElementById('clearSearch');
+    const filterables = [...document.querySelectorAll('#prompts .card, #cases .card')];
+
+    function normalize(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+    function applyFilter(){
+      const q = normalize(searchInput.value);
+      filterables.forEach(card => {
+        const text = normalize(card.innerText + ' ' + (card.dataset.tags||''));
+        card.style.display = text.includes(q) ? '' : 'none';
+      });
+    }
+    searchInput.addEventListener('input', applyFilter);
+    clearSearch.addEventListener('click', () => { searchInput.value=''; applyFilter(); });
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Back to top
+    const backTop = document.getElementById('backTop');
+    backTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+    // Expandir/Recolher (na prática alterna altura das textareas para facilitar leitura)
+    function setAllTextareasHeight(minHeight){
+      document.querySelectorAll('textarea').forEach(t => t.style.minHeight = minHeight);
+    }
+    document.getElementById('expandAll').addEventListener('click', () => setAllTextareasHeight('460px'));
+    document.getElementById('collapseAll').addEventListener('click', () => setAllTextareasHeight('200px'));
+
+    // Baixar a própria página como .html
+    document.getElementById('downloadPage').addEventListener('click', () => {
+      const html = '<!doctype html>' + document.documentElement.outerHTML;
+      const blob = new Blob([html], {type: 'text/html'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'oficina-prompts-gestao.html';
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(a.href);
+      a.remove();
+    });
+  </script>
+</body>
+</html>
