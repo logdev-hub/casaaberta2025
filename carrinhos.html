@@ -456,7 +456,7 @@
                     <td><span class="status-tag available">✅ Disponível</span></td>
                   </tr>
                   <tr class="bom-item" data-category="eletronico">
-                    <td>002</td><td>Controlador Arduino</td><td>1</td>
+                    <td>002</td><td>Controlador controlador</td><td>1</td>
                     <td><span class="category-tag electronic">Eletrônico</span></td>
                     <td><span class="status-tag available">✅ Disponível</span></td>
                   </tr>
@@ -555,7 +555,7 @@
               <div class="step-number">2</div>
               <div class="step-content">
                 <h4>🔌 Sistema Elétrico</h4>
-                <p>Instalação do Arduino e bateria</p>
+                <p>Instalação do controlador e bateria</p>
                 <div class="step-time">8 min</div>
               </div>
               <div class="flow-arrow">→</div>
@@ -1139,19 +1139,21 @@
     // ---------- Slide 1: Contadores ----------
     let countersDone = false;
     function animateCounters(){
-      if(countersDone) return;
-      countersDone = true;
-      document.querySelectorAll('.metric-value').forEach(el=>{
-        const target = Number(el.dataset.target||0);
-        const isPercent = el.textContent.includes('%');
-        let curr = 0;
-        const step = Math.max(1, Math.round(target/40));
-        const iv = setInterval(()=>{
-          curr += step;
-          if(curr >= target){ curr = target; clearInterval(iv) }
-          el.textContent = isPercent? curr+'%' : curr;
-        }, 30);
-      });
+  if(countersDone) return;
+  countersDone = true;
+  // Escopa apenas os contadores do Slide 1 que possuem data-target
+  document.querySelectorAll('#slide-1 .metric-value[data-target]').forEach(el=>{
+    const target = Number(String(el.dataset.target||'').replace(',', '.'));
+    if (Number.isNaN(target)) return; // não sobrescreve nada se o valor for inválido
+    const isPercent = el.textContent.includes('%');
+    let curr = 0;
+    const step = Math.max(1, Math.round(target/40));
+    const iv = setInterval(()=>{
+      curr += step;
+      if(curr >= target){ curr = target; clearInterval(iv); }
+      el.textContent = isPercent ? curr + '%' : curr;
+    }, 30);
+  });
     }
 
     // ---------- Slide 2: Barras de progresso ----------
@@ -1257,16 +1259,16 @@
 
     let miniDone=false;
     function fillMiniCharts(){
-      if(miniDone) return; miniDone = true;
-      const a = document.getElementById('mini-approval');
-      const d = document.getElementById('mini-defects');
-      const r = document.getElementById('mini-rework');
-      a && (a.style.width='96.5%');
-      d && (d.style.width='34%');
-      r && (r.style.width='21%');
-    }
-
-    function generateQualityReport(){
+  if(miniDone) return; 
+  miniDone = true;
+  const a = document.getElementById('mini-approval');
+  const d = document.getElementById('mini-defects');
+  const r = document.getElementById('mini-rework');
+  a && (a.style.width = '96.5%');
+  d && (d.style.width = '34%');
+  r && (r.style.width = '2.1%'); // corrigido de 21% para 2.1%
+}
+function generateQualityReport(){
       const msg = [
         'Relatório de Qualidade',
         '- Aprovação: 96.5%',
