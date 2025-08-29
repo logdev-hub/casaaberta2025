@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Oficinal de carrinhos robóticos - etapas de montagem</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap (CSS + Icons) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --brand:#0d6efd;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --bg:#f8fafc;
+    }
+    body{ background:var(--bg); color:var(--ink); }
+    .hero{
+      position:relative; overflow:hidden; padding:4rem 1rem;
+      background: radial-gradient(1200px 600px at 100% -20%, #cde1ff 0, transparent 60%),
+                  radial-gradient(1000px 500px at -10% 120%, #d9f7ff 0, transparent 60%), #fff;
+    }
+    .hero h1{ font-weight:800; letter-spacing:.2px; }
+    .stepper{
+      display:flex; gap:.5rem; justify-content:center; align-items:center; flex-wrap:wrap;
+    }
+    .chip{
+      background:#eaf2ff; color:#0b5ed7; font-weight:600; border-radius:999px; padding:.35rem .75rem;
+    }
+    .card-step{
+      border:0; box-shadow:0 10px 30px rgba(16,24,40,.06);
+      border-radius:1rem; overflow:hidden; background:var(--card);
+    }
+    .thumb{ cursor:pointer; border:2px solid transparent; border-radius:.5rem; transition:.2s; }
+    .thumb.active{ border-color:var(--brand); transform:translateY(-1px); }
+    .main-image{
+      border-radius:1rem; width:100%; height:420px; object-fit:cover; cursor:zoom-in;
+      background:#fff;
+    }
+    .fadein{ animation:fadein .45s ease both; }
+    @keyframes fadein{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
+    .progress{ height:.6rem; }
+    .kbd{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+          background:#eef2ff; border:1px solid #c7d2fe; border-radius:.4rem; padding:.15rem .35rem; }
+    .pre-box{ background:#fff; border-radius:1rem; box-shadow:0 6px 18px rgba(16,24,40,.06); }
+    .floating-nav{
+      position:sticky; bottom:1rem; z-index:50; background:#ffffffcc; backdrop-filter: blur(6px);
+      border:1px solid #e5e7eb; border-radius:999px; padding:.35rem; display:flex; gap:.5rem; justify-content:center;
+    }
+    .list-check li{ margin:.25rem 0; }
+    .list-check li i{ color:#16a34a; margin-right:.35rem; }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <h1 class="display-5">🔧🚗 Oficinal de carrinhos robóticos — <span class="text-primary">etapas de montagem</span></h1>
+          <p class="lead text-secondary">
+            Siga o guia prático em <strong>5 passos</strong> com fotos e instruções claras. Use as setas do teclado
+            <span class="kbd">←</span> <span class="kbd">→</span> para navegar, clique nas imagens para ampliar e marque cada etapa como concluída. ✨
+          </p>
+          <div class="stepper mt-3">
+            <span class="chip"><i class="bi bi-images me-1"></i> 18 fotos</span>
+            <span class="chip"><i class="bi bi-joystick me-1"></i> Kit motor DC</span>
+            <span class="chip"><i class="bi bi-battery-half me-1"></i> 2×AA</span>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="pre-box p-3">
+            <h6 class="mb-2">📦 Antes de começar (itens prontos)</h6>
+            <div class="d-flex gap-2">
+              <img src="001.jpeg" alt="Itens prontos 1" class="img-fluid rounded w-50">
+              <img src="002.jpeg" alt="Itens prontos 2" class="img-fluid rounded w-50">
+            </div>
+            <small class="text-muted d-block mt-2">Dica: mantenha a área limpa e as peças organizadas por etapa.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PROGRESS BAR -->
+  <div class="container mb-3">
+    <div class="d-flex align-items-center gap-2 mb-2">
+      <i class="bi bi-lightning-charge-fill text-warning"></i>
+      <small class="text-muted" id="progressLabel">Progresso: 1/5</small>
+    </div>
+    <div class="progress" role="progressbar" aria-label="Progresso das etapas">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" id="progressBar" style="width: 20%"></div>
+    </div>
+  </div>
+
+  <!-- STEP CARD -->
+  <section class="container mb-5">
+    <div class="card card-step fadein" id="stepCard">
+      <div class="row g-0">
+        <div class="col-lg-6 p-3 p-lg-4">
+          <img id="mainImage" src="003.jpeg" alt="Imagem da etapa" class="main-image fadein" data-bs-toggle="modal" data-bs-target="#lightboxModal">
+          <div class="d-flex flex-wrap gap-2 mt-3" id="thumbs"></div>
+          <div class="mt-3 d-flex gap-2">
+            <button class="btn btn-outline-secondary btn-sm" id="btnPrevImg"><i class="bi bi-chevron-left"></i> Foto</button>
+            <button class="btn btn-outline-secondary btn-sm" id="btnNextImg">Foto <i class="bi bi-chevron-right"></i></button>
+            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#lightboxModal">
+              <i class="bi bi-arrows-fullscreen me-1"></i>Ver todas da etapa
+            </button>
+          </div>
+        </div>
+        <div class="col-lg-6 p-3 p-lg-4">
+          <span class="badge rounded-pill bg-primary-subtle text-primary-emphasis mb-2" id="stepBadge">Passo 1</span>
+          <h3 id="stepTitle">🧰 Preparar o chassi e os eixos</h3>
+          <div id="stepText" class="mt-2"></div>
+
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="checkbox" value="" id="doneCheck">
+            <label class="form-check-label" for="doneCheck">Marcar esta etapa como concluída ✅</label>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 mt-4">
+            <button id="btnPrev" class="btn btn-outline-dark"><i class="bi bi-arrow-left"></i> Etapa anterior</button>
+            <button id="btnNext" class="btn btn-dark">Próxima etapa <i class="bi bi-arrow-right"></i></button>
+          </div>
+
+          <div class="alert alert-light border mt-3 mb-0">
+            <i class="bi bi-lightbulb me-1 text-warning"></i>
+            Dica: pressione <span class="kbd">←</span> ou <span class="kbd">→</span> para navegar entre etapas.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating short nav -->
+  <div class="container">
+    <div class="floating-nav shadow-sm">
+      <button class="btn btn-sm btn-outline-secondary" id="jump1">1</button>
+      <button class="btn btn-sm btn-outline-secondary" id="jump2">2</button>
+      <button class="btn btn-sm btn-outline-secondary" id="jump3">3</button>
+      <button class="btn btn-sm btn-outline-secondary" id="jump4">4</button>
+      <button class="btn btn-sm btn-outline-secondary" id="jump5">5</button>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX / MODAL -->
+  <div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><span id="modalTitle">Etapa</span> — galeria</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <div id="modalCarousel" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner" id="modalInner"></div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#modalCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+              <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#modalCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon"></span>
+              <span class="visually-hidden">Próximo</span>
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <small class="text-muted">Use as setas para navegar entre as fotos.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS + App -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // =========================
+    // CONFIGURAÇÃO DAS ETAPAS
+    // =========================
+    const stepsConfig = [
+      {
+        badge: "Passo 1",
+        title: "🧰 Preparar o chassi e os eixos",
+        images: ["003.jpeg"],
+        html: `
+          <p>O que você vai precisar: <strong>chassi de MDF</strong> com cantoneiras, <strong>2 eixos metálicos</strong>, parafusos e <strong>chave Philips</strong>.</p>
+          <ul class="list-unstyled list-check">
+            <li><i class="bi bi-check2-circle"></i>Passe <strong>cada eixo</strong> pelas cantoneiras (frente e trás).</li>
+            <li><i class="bi bi-check2-circle"></i><strong>Centralize</strong> os eixos e <strong>aperte</strong> os parafusos sem travar o giro.</li>
+            <li><i class="bi bi-check2-circle"></i>Gire os eixos: devem rodar <strong>livres e alinhados</strong>.</li>
+            <li><i class="bi bi-check2-circle"></i>Deixe a <strong>janela estreita</strong> pronta para receber a coroa.</li>
+          </ul>`
+      },
+      {
+        badge: "Passo 2",
+        title: "⚙️ Instalar a engrenagem grande (coroa) no eixo traseiro",
+        images: ["004.jpeg","005.jpeg"],
+        html: `
+          <ul class="list-unstyled list-check">
+            <li><i class="bi bi-check2-circle"></i>Identifique o <strong>eixo traseiro</strong> (lado da janela).</li>
+            <li><i class="bi bi-check2-circle"></i>Deslize a <strong>coroa</strong> no eixo com os dentes voltados para a janela.</li>
+            <li><i class="bi bi-check2-circle"></i><strong>Centralize</strong> a coroa no recorte e garanta que não raspe no MDF.</li>
+            <li><i class="bi bi-check2-circle"></i>Deixe <strong>folga de 1–2 mm</strong> e pré-alinhe para o engate do pinhão.</li>
+          </ul>`
+      },
+      {
+        badge: "Passo 3",
+        title: "🚙 Montar espaçadores e rodas",
+        images: ["006.jpeg","007.jpeg","008.jpeg"],
+        html: `
+          <ul class="list-unstyled list-check">
+            <li><i class="bi bi-check2-circle"></i>Em cada ponta do eixo: <strong>espaçador laranja → roda</strong> (4×).</li>
+            <li><i class="bi bi-check2-circle"></i>Pressione a roda reta e firme; alinhe esquerda ↔ direita.</li>
+            <li><i class="bi bi-check2-circle"></i>Verifique giro <strong>livre</strong> e sem raspar; a coroa não deve tocar o MDF.</li>
+          </ul>`
+      },
+      {
+        badge: "Passo 4",
+        title: "🔩 Motor, suporte e engate pinhão ↔ coroa",
+        images: ["009.jpeg","010.jpeg","011.jpeg","012.jpeg","013.jpeg","014.jpeg"],
+        html: `
+          <ul class="list-unstyled list-check">
+            <li><i class="bi bi-check2-circle"></i><strong>Coloque o pinhão</strong> (engrenagem pequena) no eixo do motor.</li>
+            <li><i class="bi bi-check2-circle"></i>Encaixe o motor no <strong>suporte preto</strong> e parafuse no chassi, ao lado da janela da coroa.</li>
+            <li><i class="bi bi-check2-circle"></i><strong>Ajuste o engate</strong>: os dentes devem se tocar levemente, girando suave (sem estalos).</li>
+            <li><i class="bi bi-check2-circle"></i>Regra prática: o pinhão entra ~<strong>1/3 do dente</strong> da coroa.</li>
+          </ul>`
+      },
+      {
+        badge: "Passo 5",
+        title: "🔋 Fixar suporte de pilhas, ligar os fios e testar",
+        images: ["015.jpeg","016.jpeg","017.jpeg","018.jpeg"],
+        html: `
+          <ul class="list-unstyled list-check">
+            <li><i class="bi bi-check2-circle"></i>Parafuse o <strong>suporte de pilhas</strong> no topo do chassi (chave acessível por baixo).</li>
+            <li><i class="bi bi-check2-circle"></i>Ligue os fios: <strong>vermelho → positivo do motor</strong>, <strong>preto → outro terminal</strong> (isole).</li>
+            <li><i class="bi bi-check2-circle"></i>Organize os fios para não encostarem nas engrenagens.</li>
+            <li><i class="bi bi-check2-circle"></i>Insira as pilhas, ligue a chave e <strong>teste</strong>. Se andar ao contrário, <strong>invertar os fios</strong>.</li>
+          </ul>
+          <div class="small text-muted">
+            <i class="bi bi-tools me-1"></i>Sintomas e ajustes: barulho/engasgo → afaste um pouco o motor; patinando → aproxime.
+          </div>`
+      }
+    ];
+
+    // =========================
+    // ESTADO & ELEMENTOS
+    // =========================
+    let stepIndex = 0;
+    let imageIndex = 0;
+
+    const stepBadge = document.getElementById('stepBadge');
+    const stepTitle = document.getElementById('stepTitle');
+    const stepText  = document.getElementById('stepText');
+    const mainImage = document.getElementById('mainImage');
+    const thumbs    = document.getElementById('thumbs');
+    const progress  = document.getElementById('progressBar');
+    const progressLabel = document.getElementById('progressLabel');
+    const card = document.getElementById('stepCard');
+    const doneCheck = document.getElementById('doneCheck');
+
+    // Modal elements
+    const modalTitle = document.getElementById('modalTitle');
+    const modalInner = document.getElementById('modalInner');
+
+    // =========================
+    // FUNÇÕES
+    // =========================
+    function renderStep(idx){
+      stepIndex = Math.max(0, Math.min(idx, stepsConfig.length - 1));
+      imageIndex = 0;
+
+      const step = stepsConfig[stepIndex];
+      stepBadge.textContent = step.badge;
+      stepTitle.textContent = step.title;
+      stepText.innerHTML = step.html;
+
+      // Images
+      setMainImage(step.images[imageIndex]);
+      renderThumbs(step.images);
+
+      // Progress
+      const pct = ((stepIndex+1)/stepsConfig.length)*100;
+      progress.style.width = `${pct}%`;
+      progressLabel.textContent = `Progresso: ${stepIndex+1}/${stepsConfig.length}`;
+
+      // Modal gallery
+      buildModal(step);
+
+      // Animation
+      card.classList.remove('fadein'); void card.offsetWidth; card.classList.add('fadein');
+    }
+
+    function setMainImage(src){
+      mainImage.src = src;
+      mainImage.alt = `Etapa ${stepIndex+1} - imagem`;
+      mainImage.classList.remove('fadein'); void mainImage.offsetWidth; mainImage.classList.add('fadein');
+    }
+
+    function renderThumbs(list){
+      thumbs.innerHTML = '';
+      list.forEach((img,i)=>{
+        const el = document.createElement('img');
+        el.src = img;
+        el.alt = `miniatura ${i+1}`;
+        el.className = 'thumb fadein';
+        el.style.width = '92px';
+        el.style.height = '72px';
+        el.style.objectFit = 'cover';
+        if(i===imageIndex) el.classList.add('active');
+        el.addEventListener('click', ()=>{
+          imageIndex = i;
+          setMainImage(list[imageIndex]);
+          [...thumbs.children].forEach(t=>t.classList.remove('active'));
+          el.classList.add('active');
+        });
+        thumbs.appendChild(el);
+      });
+    }
+
+    function buildModal(step){
+      modalTitle.textContent = step.title;
+      modalInner.innerHTML = '';
+      step.images.forEach((img, i)=>{
+        const item = document.createElement('div');
+        item.className = 'carousel-item' + (i===imageIndex ? ' active' : '');
+        item.innerHTML = `<img src="${img}" class="d-block w-100" style="max-height:75vh;object-fit:contain" alt="Foto ${i+1}">`;
+        modalInner.appendChild(item);
+      });
+    }
+
+    // Buttons
+    document.getElementById('btnPrev').addEventListener('click', ()=> renderStep(stepIndex-1));
+    document.getElementById('btnNext').addEventListener('click', ()=> renderStep(stepIndex+1));
+    document.getElementById('btnPrevImg').addEventListener('click', ()=>{
+      const imgs = stepsConfig[stepIndex].images;
+      imageIndex = (imageIndex - 1 + imgs.length) % imgs.length;
+      setMainImage(imgs[imageIndex]);
+      renderThumbs(imgs);
+      buildModal(stepsConfig[stepIndex]);
+    });
+    document.getElementById('btnNextImg').addEventListener('click', ()=>{
+      const imgs = stepsConfig[stepIndex].images;
+      imageIndex = (imageIndex + 1) % imgs.length;
+      setMainImage(imgs[imageIndex]);
+      renderThumbs(imgs);
+      buildModal(stepsConfig[stepIndex]);
+    });
+
+    // Jump shortcuts (1..5)
+    for(let i=1;i<=5;i++){
+      document.getElementById('jump'+i).addEventListener('click', ()=>renderStep(i-1));
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'ArrowRight') renderStep(stepIndex+1);
+      if(e.key === 'ArrowLeft')  renderStep(stepIndex-1);
+    });
+
+    // Persist "concluído" no localStorage
+    doneCheck.addEventListener('change', ()=>{
+      localStorage.setItem('carrinho_step_'+stepIndex, doneCheck.checked ? '1':'0');
+    });
+    function restoreDoneCheck(){
+      const val = localStorage.getItem('carrinho_step_'+stepIndex);
+      doneCheck.checked = val === '1';
+    }
+
+    // Inicializa
+    renderStep(0);
+    restoreDoneCheck();
+  </script>
+</body>
+</html>

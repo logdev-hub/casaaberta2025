@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Fundamentos da Produção — Oficina de Carrinhos Robóticos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b1220;          /* fundo escuro elegante */
+      --card:#111827;        /* card */
+      --ink:#e5e7eb;         /* texto principal */
+      --muted:#9ca3af;       /* texto secundário */
+      --brand:#4f46e5;       /* roxo-azulado */
+      --accent:#22d3ee;      /* ciano */
+      --success:#22c55e;
+      --warning:#f59e0b;
+      --danger:#ef4444;
+    }
+    html,body{background:var(--bg); color:var(--ink);}
+    .hero{
+      position:relative; overflow:hidden; padding:4.5rem 0 2.5rem;
+      background:
+        radial-gradient(800px 300px at -10% 0%, rgba(79,70,229,.25) 0%, transparent 60%),
+        radial-gradient(600px 220px at 110% 0%, rgba(34,211,238,.2) 0%, transparent 60%);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .hero .badge{background:rgba(34,211,238,.12); color:var(--accent); border:1px solid rgba(34,211,238,.25)}
+    .chip{
+      background:rgba(79,70,229,.12); color:#c7d2fe; border:1px solid rgba(79,70,229,.25);
+      border-radius:999px; padding:.35rem .75rem; font-weight:600;
+    }
+    .card-dark{
+      background:var(--card); border:1px solid rgba(255,255,255,.06);
+      border-radius:16px; box-shadow:0 20px 40px rgba(0,0,0,.25);
+    }
+    .section-title{
+      display:flex; align-items:center; gap:.6rem; margin-bottom:.75rem;
+    }
+    .section-title .num{
+      width:36px; height:36px; border-radius:10px;
+      background:linear-gradient(135deg, rgba(79,70,229,.8), rgba(34,211,238,.8));
+      display:grid; place-items:center; color:#fff; font-weight:800;
+    }
+    .reveal{opacity:0; transform:translateY(12px); transition:all .55s ease;}
+    .reveal.in{opacity:1; transform:none;}
+    .icon-pill{
+      display:inline-flex; align-items:center; gap:.35rem;
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08);
+      border-radius:999px; padding:.25rem .55rem; color:var(--muted); font-size:.85rem;
+    }
+    .kpi{
+      background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06);
+      border-radius:12px; padding:.75rem .9rem;
+    }
+    .timeline{
+      height:10px; background:rgba(255,255,255,.06); border-radius:999px; overflow:hidden;
+    }
+    .timeline > div{
+      height:100%; width:0%; background:linear-gradient(90deg, var(--brand), var(--accent));
+      transition:width 1.2s ease;
+    }
+    .toc{
+      position:sticky; top:12px; display:flex; gap:.5rem; flex-wrap:wrap;
+    }
+    .toc .btn{--bs-btn-color:#c7d2fe; --bs-btn-border-color:rgba(79,70,229,.4)}
+    .table-dark thead th{color:#c7d2fe}
+    .check i{color:var(--success); margin-right:.35rem}
+    footer{
+      border-top:1px solid rgba(255,255,255,.06);
+      background:linear-gradient(180deg, rgba(255,255,255,.02), transparent 60%);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <span class="badge rounded-pill mb-3"><i class="bi bi-lightning-charge me-1"></i> Guia didático e objetivo</span>
+          <h1 class="display-5 fw-bold">🔧🚗 Oficina de Carrinhos Robóticos<br><span class="text-info">Fundamentos da Produção</span></h1>
+          <p class="lead text-secondary">
+            Entenda, em 5 partes, como **BOM, Sequenciamento, Cronograma, Qualidade e Integração de Sistemas**
+            sustentam a montagem do carrinho. Use o menu rápido para navegar e veja as correlações com os Passos 1–5 de montagem.
+          </p>
+          <div class="toc">
+            <a href="#p1" class="btn btn-outline-primary btn-sm">Parte 1</a>
+            <a href="#p2" class="btn btn-outline-primary btn-sm">Parte 2</a>
+            <a href="#p3" class="btn btn-outline-primary btn-sm">Parte 3</a>
+            <a href="#p4" class="btn btn-outline-primary btn-sm">Parte 4</a>
+            <a href="#p5" class="btn btn-outline-primary btn-sm">Parte 5</a>
+            <a href="#correlacao" class="btn btn-primary btn-sm"><i class="bi bi-diagram-3 me-1"></i>Correlação com a Oficina</a>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card-dark p-3">
+            <div class="d-flex gap-2 flex-wrap">
+              <span class="chip"><i class="bi bi-list-check me-1"></i>BOM</span>
+              <span class="chip"><i class="bi bi-diagram-3 me-1"></i>Sequenciamento</span>
+              <span class="chip"><i class="bi bi-stopwatch me-1"></i>Cronograma</span>
+              <span class="chip"><i class="bi bi-shield-check me-1"></i>Qualidade</span>
+              <span class="chip"><i class="bi bi-cpu me-1"></i>Integração</span>
+            </div>
+            <div class="mt-3">
+              <div class="timeline"><div id="heroLine"></div></div>
+              <small class="text-secondary d-block mt-2">Clique em “Simular” para ver uma timeline didática.</small>
+              <button id="btnSimular" class="btn btn-sm btn-outline-info mt-2"><i class="bi bi-play-fill me-1"></i>Simular</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container my-4">
+
+    <!-- Parte 1 -->
+    <section id="p1" class="reveal">
+      <div class="card-dark p-4 mb-4">
+        <div class="section-title">
+          <div class="num">1</div>
+          <h3 class="m-0">📦 Gestão de Insumos & BOM (Bill of Materials)</h3>
+        </div>
+        <p class="text-secondary mb-3">Uma lista única e padronizada de tudo que entra no carrinho (código, descrição, quantidade, categoria e status),
+          apoiada por ferramentas de estoque inteligente.</p>
+        <div class="row g-3">
+          <div class="col-lg-6">
+            <div class="kpi">
+              <span class="icon-pill me-2"><i class="bi bi-truck"></i> Just-in-Time</span>
+              <span class="icon-pill me-2"><i class="bi bi-graph-up"></i> Previsão de demanda</span>
+              <span class="icon-pill"><i class="bi bi-bell"></i> Alertas de reposição</span>
+              <ul class="mt-3 mb-0 check">
+                <li class="text-secondary"><i class="bi bi-check2-circle"></i>Evita faltas e paradas na bancada.</li>
+                <li class="text-secondary"><i class="bi bi-check2-circle"></i>Compra e reposição no tempo certo.</li>
+                <li class="text-secondary"><i class="bi bi-check2-circle"></i>Planeja turmas/lotes de kits.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="kpi">
+              <strong>Ligação com a oficina</strong>
+              <ul class="mt-2 mb-0 text-secondary check">
+                <li><i class="bi bi-check2-circle"></i><b>Passos 1–3:</b> chassi, coroa e rodas (D01, D03/D04, D07).</li>
+                <li><i class="bi bi-check2-circle"></i><b>Passo 4:</b> motor + pinhão (D03, D07).</li>
+                <li><i class="bi bi-check2-circle"></i><b>Passo 5:</b> suporte de pilhas e cabos (D06, D08).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Parte 2 -->
+    <section id="p2" class="reveal">
+      <div class="card-dark p-4 mb-4">
+        <div class="section-title">
+          <div class="num">2</div>
+          <h3 class="m-0">🧭 Sequenciamento de Operações</h3>
+        </div>
+        <p class="text-secondary">A ordem correta garante fluidez e qualidade. Exemplo de sequência de 6 operações com tempos-alvo.</p>
+        <div class="row g-3">
+          <div class="col-lg-7">
+            <table class="table table-dark table-sm align-middle mb-2">
+              <thead><tr><th>#</th><th>Operação</th><th>Tempo</th><th>Relação na oficina</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>Preparação Base</td><td>5 min</td><td>Passos 1–3 (chassi, coroa, rodas)</td></tr>
+                <tr><td>2</td><td>Sistema Elétrico</td><td>8 min</td><td>Início do Passo 5 (suporte de pilhas)</td></tr>
+                <tr><td>3</td><td>Sistema de Movimento</td><td>12 min</td><td>Passo 4 (motor + pinhão)</td></tr>
+                <tr><td>4</td><td>Sensores</td><td>10 min</td><td>Opcional/upgrade</td></tr>
+                <tr><td>5</td><td>Conexões</td><td>15 min</td><td>Fim do Passo 5 (cabeamento)</td></tr>
+                <tr><td>6</td><td>Testes</td><td>10 min</td><td>Final do Passo 5</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-lg-5">
+            <div class="kpi">
+              <strong>Princípios de Otimização</strong>
+              <ul class="mt-2 mb-0 text-secondary check">
+                <li><i class="bi bi-check2-circle"></i><b>Setup:</b> ferramentas e peças já separadas.</li>
+                <li><i class="bi bi-check2-circle"></i><b>Balanceamento:</b> dividir tarefas (rodas vs. motor).</li>
+                <li><i class="bi bi-check2-circle"></i><b>Gargalo:</b> conexões costumam levar mais tempo — padronize chicotes.</li>
+                <li><i class="bi bi-check2-circle"></i><b>Flexibilidade:</b> etapa de sensores pode entrar/saír sem quebrar o fluxo.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Parte 3 -->
+    <section id="p3" class="reveal">
+      <div class="card-dark p-4 mb-4">
+        <div class="section-title">
+          <div class="num">3</div>
+          <h3 class="m-0">⏱️ Gestão de Tempo & Cronograma</h3>
+        </div>
+        <p class="text-secondary">Um cronograma de 60 min por carrinho e KPIs em tempo real para manter ritmo e previsibilidade.</p>
+        <div class="row g-3">
+          <div class="col-lg-7">
+            <div class="mb-2 text-secondary"><i class="bi bi-calendar2-week me-1"></i>Timeline didática (exemplo)</div>
+            <div class="timeline mb-2"><div id="line3"></div></div>
+            <small class="text-secondary">Clique em <b>Simular</b> no topo para animar a timeline.</small>
+          </div>
+          <div class="col-lg-5">
+            <div class="row g-2">
+              <div class="col-6">
+                <div class="kpi text-center">
+                  <div class="fs-4 text-success fw-bold">93%</div>
+                  <div class="text-secondary">Eficiência</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="kpi text-center">
+                  <div class="fs-4 text-success fw-bold">98%</div>
+                  <div class="text-secondary">Qualidade</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="kpi text-center">
+                  <div class="fs-4 fw-bold" style="color:var(--accent)">6</div>
+                  <div class="text-secondary">Unid/h</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="kpi text-center">
+                  <div class="fs-4 fw-bold" style="color:var(--warning)">10 min</div>
+                  <div class="text-secondary">Tempo de ciclo</div>
+                </div>
+              </div>
+            </div>
+            <ul class="mt-3 text-secondary check mb-0">
+              <li><i class="bi bi-check2-circle"></i>Mantenha as etapas próximas de <b>10 min</b> para sustentar 6 unid/h.</li>
+              <li><i class="bi bi-check2-circle"></i>Trate “Conexões” como gargalo prioritário.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Parte 4 -->
+    <section id="p4" class="reveal">
+      <div class="card-dark p-4 mb-4">
+        <div class="section-title">
+          <div class="num">4</div>
+          <h3 class="m-0">🛡️ Controle de Qualidade Avançado</h3>
+        </div>
+        <div class="row g-3">
+          <div class="col-lg-6">
+            <strong class="d-block mb-2">Pontos de Controle</strong>
+            <ul class="text-secondary check mb-3">
+              <li><i class="bi bi-check2-circle"></i><b>Inspeção de entrada:</b> peças do BOM sem danos.</li>
+              <li><i class="bi bi-check2-circle"></i><b>Controle de processo:</b> eixos livres, coroa centralizada, engate suave.</li>
+              <li><i class="bi bi-check2-circle"></i><b>Testes funcionais:</b> continuidade, tensão, consumo, rodagem reta.</li>
+            </ul>
+            <div class="row g-2">
+              <div class="col-4"><div class="kpi text-center"><div class="fs-5 text-success fw-bold">96,5%</div><small class="text-secondary">Aprovação</small></div></div>
+              <div class="col-4"><div class="kpi text-center"><div class="fs-5 fw-bold" style="color:var(--accent)">340</div><small class="text-secondary">DPM</small></div></div>
+              <div class="col-4"><div class="kpi text-center"><div class="fs-5 fw-bold" style="color:var(--warning)">2,1%</div><small class="text-secondary">Retrabalho</small></div></div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <strong class="d-block mb-2">Protocolo de Testes</strong>
+            <div class="kpi mb-2">
+              <div class="mb-1"><i class="bi bi-plugin me-1"></i><b>Elétricos:</b> continuidade ✅ · tensão ✅ · consumo ⚠️ (checar aquecimento)</div>
+              <div><i class="bi bi-gear me-1"></i><b>Mecânicos:</b> movimento das rodas ✅ · alinhamento do chassi ✅ · fixações ✅</div>
+            </div>
+            <small class="text-secondary d-block">Principais causas de falha: fio solto/polaridade invertida e engrenagem desajustada.
+              Contramedidas: checklist visual, gabarito simples para posição do motor, reaperto padrão.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Parte 5 -->
+    <section id="p5" class="reveal">
+      <div class="card-dark p-4 mb-4">
+        <div class="section-title">
+          <div class="num">5</div>
+          <h3 class="m-0">🤝 Integração de Sistemas & Otimização</h3>
+        </div>
+        <p class="text-secondary">Camadas de tecnologia e métodos de melhoria contínua que fecham o ciclo da produção.</p>
+        <div class="row g-3">
+          <div class="col-lg-7">
+            <ul class="text-secondary mb-3">
+              <li><span class="icon-pill mb-1"><i class="bi bi-building"></i> ERP</span> → compras, custos e BOM.</li>
+              <li><span class="icon-pill mb-1"><i class="bi bi-kanban"></i> MES</span> → ordens, sequenciamento e rastreio.</li>
+              <li><span class="icon-pill mb-1"><i class="bi bi-activity"></i> SCADA</span> → monitoramento e alarmes.</li>
+              <li><span class="icon-pill mb-1"><i class="bi bi-cpu"></i> PLC/DCS</span> → sensores, atuadores e motores.</li>
+            </ul>
+            <div class="kpi">
+              <b>Benefícios típicos</b>
+              <div class="row g-2 mt-1">
+                <div class="col-6 text-success">+40% produtividade</div>
+                <div class="col-6 text-success">+60% precisão no plano</div>
+                <div class="col-6 text-info">+45% qualidade</div>
+                <div class="col-6 text-danger">-30% custos</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="kpi">
+              <b>Fluxo integrado</b>
+              <ol class="text-secondary mt-2 mb-0">
+                <li>ERP libera compras do BOM.</li>
+                <li>MES cria OP, define sequência/tempos.</li>
+                <li>PLC/SCADA executa e registra dados.</li>
+                <li>Qualidade aprova (ou abre retrabalho).</li>
+                <li>MES/ERP fecham custos e indicadores.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Correlação com a Oficina -->
+    <section id="correlacao" class="reveal">
+      <div class="card-dark p-4">
+        <div class="section-title">
+          <div class="num"><i class="bi bi-diagram-3"></i></div>
+          <h3 class="m-0">📚 Como tudo se conecta à Oficina de Montagem</h3>
+        </div>
+        <p class="text-secondary mb-3">Resumo didático ligando os fundamentos (Partes 1–5) aos <b>Passos 1–5</b> do seu guia de montagem.</p>
+        <div class="row g-3">
+          <div class="col-lg-7">
+            <table class="table table-dark table-sm align-middle">
+              <thead><tr><th>Fundamento</th><th>Como ajuda</th><th>Passos da Oficina</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>Parte 1 — BOM & Estoque 📦</td>
+                  <td>Garante peças certas, na quantidade certa, na hora certa (JIT + alerta).</td>
+                  <td>1–3 (chassi/coroa/rodas), 4 (motor), 5 (pilhas/cabos)</td>
+                </tr>
+                <tr>
+                  <td>Parte 2 — Sequenciamento 🧭</td>
+                  <td>Define a ordem ideal e reduz troca de ferramentas e esperas.</td>
+                  <td>Orquestra 1→5 sem retrabalho</td>
+                </tr>
+                <tr>
+                  <td>Parte 3 — Cronograma ⏱️</td>
+                  <td>Mantém o ritmo (≈10 min/etapa) e revela gargalos.</td>
+                  <td>Planeja lotes e turnos da oficina</td>
+                </tr>
+                <tr>
+                  <td>Parte 4 — Qualidade 🛡️</td>
+                  <td>Inspeções + testes elétrico-mecânicos asseguram “aprovado de 1ª”.</td>
+                  <td>Checkpoints no fim de cada passo; validação no 5</td>
+                </tr>
+                <tr>
+                  <td>Parte 5 — Integração 🤝</td>
+                  <td>ERP↔MES↔SCADA/PLC conectam compras, execução e indicadores.</td>
+                  <td>Do kit à entrega, tudo rastreado</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-lg-5">
+            <div class="kpi">
+              <b>Mensagem para o público</b>
+              <ul class="text-secondary mt-2 mb-0 check">
+                <li><i class="bi bi-check2-circle"></i>Montar bem começa antes da bancada (BOM e plano).</li>
+                <li><i class="bi bi-check2-circle"></i>A ordem das tarefas economiza tempo e evita erros.</li>
+                <li><i class="bi bi-check2-circle"></i>Medir (tempo/qualidade) é o que permite melhorar.</li>
+                <li><i class="bi bi-check2-circle"></i>Integração transforma a oficina em um sistema que aprende.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="alert alert-info mt-3 mb-0">
+          <i class="bi bi-stars me-1"></i>
+          <b>Em prática:</b> com o BOM validado, sequência clara, cronograma de 60 min, testes padronizados e integração de dados,
+          cada grupo consegue montar carrinhos <u>de forma consistente</u>, com <u>menos retrabalho</u> e <u>mais previsibilidade</u>.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="py-4">
+    <div class="container text-center text-secondary">
+      <small>© Oficina de Carrinhos Robóticos — material didático interativo</small>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // ========= Animações de entrada (Intersection Observer)
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // ========= Simulação simples de timeline
+    const heroLine = document.getElementById('heroLine');
+    const line3 = document.getElementById('line3');
+    const btn = document.getElementById('btnSimular');
+    let running = false;
+
+    function animateLine(el, steps=5, totalMs=3000){
+      el.style.width='0%';
+      const stepPct = 100/steps;
+      let pct = 0;
+      let i = 0;
+      const tick = totalMs/steps;
+      const t = setInterval(()=>{
+        pct += stepPct; i++;
+        el.style.width = pct+'%';
+        if(i>=steps){ clearInterval(t); }
+      }, tick);
+    }
+
+    btn.addEventListener('click', ()=>{
+      if(running) return;
+      running = true;
+      animateLine(heroLine, 5, 3500);
+      animateLine(line3, 6, 4200);
+      btn.disabled = true;
+      btn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i>Rodando...';
+      setTimeout(()=>{
+        btn.disabled = false; running=false;
+        btn.innerHTML = '<i class="bi bi-play-fill me-1"></i>Simular';
+      }, 4200);
+    });
+
+    // ========= Navegação com seta do teclado (ancoras de seção)
+    const ids = ['p1','p2','p3','p4','p5','correlacao'];
+    let idx = 0;
+    window.addEventListener('keydown', (e)=>{
+      if(e.key==='ArrowRight'){ idx = Math.min(idx+1, ids.length-1); document.getElementById(ids[idx]).scrollIntoView({behavior:'smooth'}); }
+      if(e.key==='ArrowLeft'){ idx = Math.max(idx-1, 0); document.getElementById(ids[idx]).scrollIntoView({behavior:'smooth'}); }
+    });
+  </script>
+</body>
+</html>
